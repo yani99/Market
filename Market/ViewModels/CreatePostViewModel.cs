@@ -1,6 +1,7 @@
-﻿namespace Market.ViewModels
+﻿using AutoMapper;
+namespace Market.ViewModels
 {
-    public class CreatePostViewModel
+    public class CreatePostViewModel 
     {
     }
 }

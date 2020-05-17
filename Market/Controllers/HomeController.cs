@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Market.Models;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace Market.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        
+        private readonly IMapper _mapper;
+        public HomeController(ILogger<HomeController> logger,IMapper mapper)
         {
             _logger = logger;
+            _mapper = mapper;
+            
         }
 
         [HttpGet]

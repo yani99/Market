@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Market.Mapping;
 using Market.Models;
 using Market.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +34,13 @@ namespace Market
         {
             services.AddDbContext<MarketDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddAutoMapper(typeof(Startup));
+            var mappingConfig = new MapperConfiguration(mc => 
+            { 
+                mc.AddProfile(new MappingProfile()); 
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
             //add custom password validation TODO
             services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
             {
@@ -57,7 +65,7 @@ namespace Market
             }).AddRazorRuntimeCompilation();
 
             services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
+                   
         }
 
 
