@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Market.Models;
 using Market.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace Market.Controllers
 {
@@ -13,14 +18,17 @@ namespace Market.Controllers
     {
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly SignInManager<AspNetUsers> _signInManager;
+        private readonly IEmailSender _emailSender;
 
         public AccountController(UserManager<AspNetUsers> userManager,
-           SignInManager<AspNetUsers> signInManager)
+            SignInManager<AspNetUsers> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
 
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -29,6 +37,7 @@ namespace Market.Controllers
 
         #region login
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             if (_signInManager.IsSignedIn(User))
@@ -39,6 +48,7 @@ namespace Market.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -61,6 +71,7 @@ namespace Market.Controllers
 
         #region Register
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             if (_signInManager.IsSignedIn(User))
@@ -71,6 +82,7 @@ namespace Market.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -85,17 +97,132 @@ namespace Market.Controllers
 
                 if (result.Succeeded)
                 {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token }, Request.Scheme);
+                    await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
                     return View("SuccessRegistration");
                 }
 
-                foreach (var error in result.Errors)
+                foreach (var error in result.Errors)    
                 {
                     ModelState.AddModelError("", error.Description);
                 }
             }
             return View(model);
         }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return RedirectToAction("Home","Error");
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                return View();
+            }
+            return RedirectToAction("Error", "Home");
+        }
         #endregion
+
+        #region PasswordRecovery
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null && user.EmailConfirmed)
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var callbackUrl = Url.Action("ResetPassword", "Account",
+                        new { token = token, email = model.Email }, Request.Scheme);
+                    await _emailSender.SendEmailAsync(model.Email, "ResetPassword",
+                    $"To Reset your password click this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
+
+                    return View("ForgotPasswordConfirmation");
+                }
+                ModelState.AddModelError("", "invalid email");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            if (token == null || email == null)
+            {
+                ModelState.AddModelError("", "Invalid password reset token");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
+                {
+                    var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+                    if (result.Succeeded)
+                    {
+                        return View("ResetPasswordConfirmation");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View(model);
+                }
+
+                return View("ResetPasswordConfirmation");
+            }
+            return View(model);
+        }
+        #endregion
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            if ((await _userManager.FindByEmailAsync(email)) == null)
+            {
+                return Json(true);
+            }
+            return Json($"Email {email} is already in use");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsUsernameInUse(string username)
+        {
+            if ((await _userManager.FindByNameAsync(username)) == null)
+            {
+                return Json(true);
+            }
+            return Json($"Username {username} is already in use");
+        }
 
         [HttpGet]
         public IActionResult MyAccount()

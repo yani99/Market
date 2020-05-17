@@ -69,3 +69,25 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.universal-market-backgound {
+   background-color:#EDC7B7;
+}
+
+.universal-market-logo {
+    background-image: url(/images/universalmarket-logo.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 70px;
+}
+
+.custom-validation-summary {
+    font-family:Arial;
+    margin-bottom: 20px;
+    line-height: 20px;
+    color: red
+}
+
+    .custom-validation-summary ul {
+        margin-left: 20px;
+    }

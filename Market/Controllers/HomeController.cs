@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Market.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Market.Controllers
 {
@@ -18,11 +19,15 @@ namespace Market.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();

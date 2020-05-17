@@ -11,10 +11,12 @@ namespace Market.ViewModels
     {
         [Required]
         [Display(Name = "Username")]
+        [Remote(controller: "Account", action: "IsUsernameInUse")]
         public string UserName { get; set; }
 
         [Required]
         [EmailAddress]
+        [Remote(controller: "Account", action: "IsEmailInUse")]
         public string Email { get; set; }
 
         [Required]
