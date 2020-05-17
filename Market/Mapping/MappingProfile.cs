@@ -9,6 +9,7 @@ namespace Market.Mapping
         public MappingProfile()
         {
             CreateMap<Product, CreatePostViewModel>();
+            CreateMap<RegisterViewModel, AspNetUsers>();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Market
         {
             services.AddDbContext<MarketDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddAutoMapper(typeof(Startup));
+
             var mappingConfig = new MapperConfiguration(mc => 
             { 
                 mc.AddProfile(new MappingProfile()); 

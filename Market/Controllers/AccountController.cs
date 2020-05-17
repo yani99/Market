@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Market.Models;
 using Market.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -19,13 +20,16 @@ namespace Market.Controllers
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly SignInManager<AspNetUsers> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly IMapper _mapper;
 
         public AccountController(UserManager<AspNetUsers> userManager,
-            SignInManager<AspNetUsers> signInManager, IEmailSender emailSender)
+            SignInManager<AspNetUsers> signInManager, IEmailSender emailSender,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -87,12 +91,8 @@ namespace Market.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AspNetUsers()
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                };
-
+                var user = _mapper.Map<AspNetUsers>(model);
+          
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
