@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Market.Models
 {
-    public partial class MarketDBContext
+    public partial class MarketDBContext : DbContext
     {
         public MarketDBContext()
         {

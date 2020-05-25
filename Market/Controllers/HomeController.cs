@@ -8,49 +8,32 @@ using Microsoft.Extensions.Logging;
 using Market.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Market.ViewModels;
-using Market.Services;
+using PagedList;
+using AutoMapper.Configuration.Conventions;
 
 namespace Market.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-         
+        private readonly MarketDBContext _context;
+
         private readonly IMapper _mapper;
-
-        private readonly UserManager<AspNetUsers> userManager;
-
-        private readonly ICreatePostService createPostService;
-
-        public HomeController(ILogger<HomeController> logger,IMapper mapper,UserManager<AspNetUsers> userManager,ICreatePostService createPostService)
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, MarketDBContext context)
         {
             _logger = logger;
             _mapper = mapper;
-            this.userManager = userManager;
-            this.createPostService = createPostService;
+            _context = context;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        public IActionResult Create(CreatePostViewModel input)
-        {
-            var user = userManager.GetUserId(this.User);
-            createPostService.CreatePost(input.Title, input.Description, input.Price, input.Quantity, user);
-            return this.View();
+           var product = PaginatedListViewModel<Product>.CreateAsync(_context.Product , page , 5);
+            return View(product);
         }
 
         [HttpGet]
@@ -64,6 +47,21 @@ namespace Market.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Edit(int Id)
+        {
+            var _product = new Product
+            {
+                Id = 6,
+                Description = "Porcelanova chasha",
+                Title = "Chasha",
+                Price = 14
+            };
+            var ViewModel = _mapper.Map<EditProductViewModel>(_product);
+            return View(ViewModel);
         }
     }
 }
