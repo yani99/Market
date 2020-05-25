@@ -11,14 +11,14 @@ namespace Market.Models
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
-            Orders = new HashSet<Orders>();
         }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

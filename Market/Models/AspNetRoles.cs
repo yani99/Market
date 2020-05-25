@@ -10,8 +10,6 @@ namespace Market.Models
             AspNetRoleClaims = new HashSet<AspNetRoleClaims>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
         }
-
-
         public virtual ICollection<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
     }

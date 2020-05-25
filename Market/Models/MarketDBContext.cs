@@ -22,7 +22,7 @@ namespace Market.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<ImageCollection> ImageCollection { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Quality> Quality { get; set; }
         public virtual DbSet<Shipper> Shipper { get; set; }
@@ -120,6 +120,10 @@ namespace Market.Models
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
+                entity.Property(e => e.FirstName).HasMaxLength(256);
+
+                entity.Property(e => e.LastName).HasMaxLength(256);
+
                 entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
 
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
@@ -127,69 +131,50 @@ namespace Market.Models
                 entity.Property(e => e.UserName).HasMaxLength(256);
             });
 
-            modelBuilder.Entity<Orders>(entity =>
+            modelBuilder.Entity<ImageCollection>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.Picture1)
+                    .HasColumnName("picture1")
+                    .HasMaxLength(512);
 
-                entity.Property(e => e.QualityId).HasColumnName("QualityID");
+                entity.Property(e => e.Picture2)
+                    .HasColumnName("picture2")
+                    .HasMaxLength(512);
 
-                entity.Property(e => e.ShipperId).HasColumnName("ShipperID");
+                entity.Property(e => e.Picture3)
+                    .HasColumnName("picture3")
+                    .HasMaxLength(512);
 
-                entity.Property(e => e.UserId)
-                    .IsRequired()
-                    .HasColumnName("UserID")
-                    .HasMaxLength(450);
+                entity.Property(e => e.Picture4)
+                    .HasColumnName("picture4")
+                    .HasMaxLength(512);
 
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Orders_Product");
-
-                entity.HasOne(d => d.Quality)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.QualityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Orders_Quality");
-
-                entity.HasOne(d => d.Shipper)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.ShipperId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Orders_Shipper");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Orders_AspNetUsers");
+                entity.Property(e => e.Picture5)
+                    .HasColumnName("picture5")
+                    .HasMaxLength(512);
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.QualityId).HasColumnName("QualityID");
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(1000);
 
-                entity.Property(e => e.ShipperId).HasColumnName("ShipperID");
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.ProfilePicture).HasMaxLength(512);
 
                 entity.Property(e => e.Title)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(100);
 
-                entity.HasOne(d => d.Quality)
-                    .WithMany(p => p.Product)
-                    .HasForeignKey(d => d.QualityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Product_Quality");
-
-                entity.HasOne(d => d.Shipper)
-                    .WithMany(p => p.Product)
-                    .HasForeignKey(d => d.ShipperId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Product_Shipper");
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
             });
 
             modelBuilder.Entity<Quality>(entity =>

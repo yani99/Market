@@ -8,19 +8,28 @@ using Microsoft.Extensions.Logging;
 using Market.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Market.ViewModels;
+using Market.Services;
 
 namespace Market.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        
+         
         private readonly IMapper _mapper;
-        public HomeController(ILogger<HomeController> logger,IMapper mapper)
+
+        private readonly UserManager<AspNetUsers> userManager;
+
+        private readonly ICreatePostService createPostService;
+
+        public HomeController(ILogger<HomeController> logger,IMapper mapper,UserManager<AspNetUsers> userManager,ICreatePostService createPostService)
         {
             _logger = logger;
             _mapper = mapper;
-            
+            this.userManager = userManager;
+            this.createPostService = createPostService;
         }
 
         [HttpGet]
@@ -28,6 +37,20 @@ namespace Market.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreatePostViewModel input)
+        {
+            var user = userManager.GetUserId(this.User);
+            createPostService.CreatePost(input.Title, input.Description, input.Price, input.Quantity, user);
+            return this.View();
         }
 
         [HttpGet]

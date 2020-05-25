@@ -63,7 +63,7 @@ namespace Market
                 .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddRazorRuntimeCompilation();
-
+            services.AddTransient<ICreatePostService, CreatePostService>();
             services.AddTransient<IEmailSender, EmailSender>();
                    
         }
