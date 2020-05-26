@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Market.ViewModels;
-using PagedList;
 using AutoMapper.Configuration.Conventions;
 
 namespace Market.Controllers
@@ -30,9 +29,9 @@ namespace Market.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index(int page = 1)
+        public IActionResult Index(int page = 1)
         {
-           var product = PaginatedListViewModel<Product>.CreateAsync(_context.Product , page , 5);
+           var product =   PaginatedListViewModel<Product>.CreateAsync(_context.Product , page , 5);
             return View(product);
         }
 
