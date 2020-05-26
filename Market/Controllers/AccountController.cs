@@ -57,7 +57,7 @@ namespace Market.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
@@ -225,7 +225,7 @@ namespace Market.Controllers
         }
 
         [HttpGet]
-        public IActionResult MyAccount()
+        public IActionResult Index()
         {
             return View();
         }

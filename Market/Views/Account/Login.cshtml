@@ -29,6 +29,14 @@
                 <div class="form-group">
                     <a class="ForgetPwd" style="color:black" asp-action="ForgotPassword" asp-controller="Account">Forget Password?</a>
                 </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="@Model.RememberMe">
+                            <input asp-for="@Model.RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
