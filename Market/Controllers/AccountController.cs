@@ -228,7 +228,7 @@ namespace Market.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            var model = _mapper.Map<DetailAccountViewModel>(user);
+            var model = _mapper.Map<DetailsAccountViewModel>(user);
             return View(model);
         }
 
@@ -236,8 +236,15 @@ namespace Market.Controllers
         public async Task<IActionResult> Details()
         {
             var user = await _userManager.GetUserAsync(User);
-            var model = _mapper.Map<DetailAccountViewModel>(user);
-            return PartialView(model);
+            var model = _mapper.Map<DetailsAccountViewModel>(user);
+            return PartialView("_DetailsPartial",model);
+        }
+
+        public async Task<IActionResult> Edit()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var model = _mapper.Map<EditAccountViewModel>(user);
+            return PartialView("_EditPartial",model);
         }
     }
 }

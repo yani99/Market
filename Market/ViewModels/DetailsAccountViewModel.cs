@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Market.ViewModels
 {
-    public class DetailAccountViewModel
+    public class DetailsAccountViewModel
     {
         [Display(Name = "Username")]
         public string UserName { get; set; }

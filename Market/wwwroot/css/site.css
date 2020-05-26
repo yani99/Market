@@ -128,7 +128,7 @@ i {
         font-size: 13px;
         line-height: 14px;
         font-weight: 700;
-        text-transform: uppercase;
+        text-transform:uppercase;
     }
 
     .account-sidebar ul li a:hover{
@@ -150,10 +150,6 @@ i {
         background-color: rgba(9,85,135,.4);
         padding: 20px 10px;
     }
-
-        .account-card .card-title h2 {
-            text-transform: uppercase;
-        }
 
         .account-card .card-title a {
             float: right;

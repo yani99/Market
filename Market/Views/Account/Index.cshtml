@@ -1,29 +1,60 @@
-﻿@model DetailAccountViewModel
-@{ 
+﻿@model DetailsAccountViewModel
+@{
     ViewData["Title"] = "Account Home Page";
 }
 
-    <div class="account-wrapper">  
-        <div class="account-sidebar">
-            <ul>
-                <li>
-                    <a id="my-account" href="#"><i class="fas fa-user"></i>Account details</a>
-                </li>
-                <li>
-                    <a id="my-account" href="#"><i class="fas fa-user-cog"></i>Settings</a>
-                </li>
-                <li>
-                    <a id="my-account" href="#"><i class="fas fa-shopping-cart"></i>My Purchases</a>
-                </li>
-                <li>
-                    <a id="my-account" href="#"><i class="fas fa-heart"></i>Favorite products</a>
-                </li>
-                <li>
-                    <a id="my-account" asp-action="Index" asp-controller="Home"><i class="fas fa-home"></i>Home Page</a>
-                </li>
-            </ul>
-        </div>
-        <div class="account-content">
-            <partial name="_DetailsPartial" model="@Model"/>
-        </div>
+<div class="account-wrapper">
+    <div class="account-sidebar">
+        <ul>
+            <li>
+                <a id="details-account-link" href="#"><i class="fas fa-user"></i>Account details</a>
+            </li>
+            <li>
+                <a id="edit-account-sidebar-link" href="#"><i class="fas fa-user-cog"></i>Settings</a>
+            </li>
+            <li>
+                <a id="my-account" href="#"><i class="fas fa-shopping-cart"></i>My Purchases</a>
+            </li>
+            <li>
+                <a id="my-account" href="#"><i class="fas fa-heart"></i>Favorite products</a>
+            </li>
+            <li>
+                <a id="my-account" asp-action="Index" asp-controller="Home"><i class="fas fa-home"></i>Home Page</a>
+            </li>
+        </ul>
     </div>
+    <div class="account-content">
+        <partial name="_DetailsPartial" model="@Model" />
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var editAccountUrl = "@Url.Action("Edit","Account")";
+        var detailAccountUrl = "@Url.Action("Details","Account")";
+
+        $("#details-account-link").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: detailAccountUrl,
+                success: function (result) {
+                    $(".account-content").html(result);
+                }
+            })
+        })
+
+        $("#edit-account-sidebar-link").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: editAccountUrl,
+                success: function (result) {
+                    $(".account-content").html(result);
+                }
+            })
+        })
+
+    })
+</script>
