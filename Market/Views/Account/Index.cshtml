@@ -1,6 +1,29 @@
-﻿
+﻿@model DetailAccountViewModel
 @{ 
     ViewData["Title"] = "Account Home Page";
 }
 
-
+    <div class="account-wrapper">  
+        <div class="account-sidebar">
+            <ul>
+                <li>
+                    <a id="my-account" href="#"><i class="fas fa-user"></i>Account details</a>
+                </li>
+                <li>
+                    <a id="my-account" href="#"><i class="fas fa-user-cog"></i>Settings</a>
+                </li>
+                <li>
+                    <a id="my-account" href="#"><i class="fas fa-shopping-cart"></i>My Purchases</a>
+                </li>
+                <li>
+                    <a id="my-account" href="#"><i class="fas fa-heart"></i>Favorite products</a>
+                </li>
+                <li>
+                    <a id="my-account" asp-action="Index" asp-controller="Home"><i class="fas fa-home"></i>Home Page</a>
+                </li>
+            </ul>
+        </div>
+        <div class="account-content">
+            <partial name="_DetailsPartial" model="@Model"/>
+        </div>
+    </div>

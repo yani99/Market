@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<AspNetUsers> signInManager
+﻿@inject SignInManager<AspNetUsers> signInManager
 
 @{
     var displayText = "My Account";
@@ -19,7 +18,7 @@
         <div class="dropdown-menu">
             @if (signInManager.IsSignedIn(User))
             {
-                <a class="dropdown-item" asp-action="Login" asp-controller="Account">
+                <a class="dropdown-item" asp-action="Index" asp-controller="Account">
                     <i class="fas fa-user-alt"></i>My Account
                 </a>
                 <div class="dropdown-divider"></div>

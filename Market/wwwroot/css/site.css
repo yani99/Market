@@ -64,12 +64,23 @@ body {
     background-color: whitesmoke;
     font-family: 'Raleway', sans-serif;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    overflow: hidden;
 }
 
 .universal-market-logo {
@@ -88,3 +99,80 @@ body {
     .custom-validation-summary ul {
         margin-left: 20px;
     }
+
+ul li {
+    list-style: none;
+}
+
+i {
+    margin-right: 10px;  
+}
+
+.account-wrapper {
+    background: white;
+    width: 100%;
+    height: 1000px;
+    padding-top:20px;
+}
+
+.account-sidebar{
+    width:16%;
+    float:left;
+}
+
+    .account-sidebar ul li a {
+        display: block;
+        padding: 14px 5px 13px 12px;
+        border-bottom: 1px solid #e7e7e7;  
+        color: black;
+        font-size: 13px;
+        line-height: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .account-sidebar ul li a:hover{
+        color:orange;
+    }
+
+.account-content {
+    float: left;
+    width: 82%;
+    padding-left:10px;
+}
+
+.account-card {
+    margin-top: 10px;
+    background-color: rgba(9,85,135,.2);
+}
+
+    .account-card .card-title {
+        background-color: rgba(9,85,135,.4);
+        padding: 20px 10px;
+    }
+
+        .account-card .card-title h2 {
+            text-transform: uppercase;
+        }
+
+        .account-card .card-title a {
+            float: right;
+            font-size: 22px;
+            color:black;
+        }
+
+        .account-card .card-title a:hover{
+            color:white;
+        }
+
+    .account-card .card-body .row{
+        padding-top:10px;
+    }
+
+    .account-card .card-body .balance {
+        font-size: 30px;
+        color: #70d929;
+    }
+
+
+

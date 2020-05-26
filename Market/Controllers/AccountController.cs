@@ -225,9 +225,19 @@ namespace Market.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            var model = _mapper.Map<DetailAccountViewModel>(user);
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var model = _mapper.Map<DetailAccountViewModel>(user);
+            return PartialView(model);
         }
     }
 }

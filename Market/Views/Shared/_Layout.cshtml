@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container col-11">
                 <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/images/universalmarket-logo.png" height="45" width="120">
@@ -35,11 +35,10 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+        <main role="main" class="container">
             @RenderBody()
         </main>
-    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">

@@ -12,6 +12,9 @@ namespace Market.Mapping
             CreateMap<RegisterViewModel, AspNetUsers>();
             CreateMap<EditProductViewModel,Product>();
             CreateMap<Product, EditProductViewModel>();
+
+            CreateMap<DetailAccountViewModel, AspNetUsers>();
+            CreateMap<AspNetUsers, DetailAccountViewModel>();
         }
     }
 }
