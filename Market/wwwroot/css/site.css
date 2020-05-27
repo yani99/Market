@@ -151,6 +151,10 @@ i {
         padding: 20px 10px;
     }
 
+        .account-card .card-title h2 {
+            font-size: 28px;
+        }
+
         .account-card .card-title a {
             float: right;
             font-size: 22px;

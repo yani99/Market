@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Market.Models;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Newtonsoft.Json;
 
 namespace Market.Controllers
 {
@@ -240,11 +243,22 @@ namespace Market.Controllers
             return PartialView("_DetailsPartial",model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit()
         {
             var user = await _userManager.GetUserAsync(User);
             var model = _mapper.Map<EditAccountViewModel>(user);
             return PartialView("_EditPartial",model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditAccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            return PartialView("_EditPartial", model);
         }
     }
 }

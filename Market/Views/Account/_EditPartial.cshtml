@@ -4,7 +4,7 @@
 <div id="account-edit">
     <h1 class="text-uppercase">Edit Account</h1>
     <hr />
-    <form method="post">
+    <form id="account-edit-form" method="post">
         <div asp-validation-summary="All" class="custom-validation-summary"></div>
         <div class="card account-card">
             <div class="card-title">
@@ -84,3 +84,32 @@
         </div>
     </form>
 </div>
+
+
+    <script>
+        function getFormData($form) {
+            var unindexed_array = $form.serializeArray();
+            var indexed_array = {};
+
+            $.map(unindexed_array, function (n) {
+                indexed_array[n['name']] = n['value'];
+            });
+
+            return indexed_array;
+        }
+
+        $("#account-edit-form").submit(function (e) {
+            e.preventDefault();
+            var editAccountUrl = "@Url.Action("Edit","Account")";
+            var formData = getFormData($(this));
+
+            $.ajax({
+                url: editAccountUrl,
+                type: "POST",
+                data: { model: formData},
+                success: function (result) {
+                    $("#account-edit").html(result);
+                }
+            })
+        })
+    </script>

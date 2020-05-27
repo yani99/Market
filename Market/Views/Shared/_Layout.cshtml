@@ -31,14 +31,16 @@
                         </li>
                     </ul>
                 </div>
-                <partial name="_LoginPartial" />
+                <div class="navbar">
+                    @await Component.InvokeAsync("Login")
+                </div>
             </div>
         </nav>
     </header>
 
-        <main role="main" class="container">
-            @RenderBody()
-        </main>
+    <main role="main" class="container">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted bg-dark">
         <div class="container">
