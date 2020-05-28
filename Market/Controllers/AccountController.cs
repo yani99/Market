@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Security.Permissions;
 using System.Threading.Tasks;
@@ -114,7 +115,6 @@ namespace Market.Controllers
             }
             return View(model);
         }
-
 
         [HttpGet]
         [AllowAnonymous]
@@ -255,8 +255,49 @@ namespace Market.Controllers
         public async Task<IActionResult> Edit(EditAccountViewModel model)
         {
             if (ModelState.IsValid)
-            {
-
+            {              
+                bool isInputValue = true;
+                var user = await _userManager.GetUserAsync(User);
+                _mapper.Map(model, user);
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    isInputValue = false;
+                }              
+                else
+                {
+                    if (user.Email != model.Email)
+                    {
+                        user.EmailConfirmed = false;
+                        await _userManager.UpdateAsync(user);
+                        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token }, Request.Scheme);
+                        await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                        $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
+                    }                 
+                }
+             
+                if (model.CurrentPassword != null || model.NewPassword != null)
+                {
+                    var passwordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                    if (!passwordResult.Succeeded)
+                    {
+                        foreach (var error in passwordResult.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                        isInputValue = false;
+                    }
+                }
+                await _signInManager.RefreshSignInAsync(user);
+                if (isInputValue)
+                {
+                    return Json(true);
+                }
             }
             return PartialView("_EditPartial", model);
         }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Market.ViewModels
 {
@@ -19,15 +18,19 @@ namespace Market.ViewModels
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [Remote(controller: "Account", action: "IsEmailInUse")]
         public string Email { get; set; }
 
+        [Display(Name ="Current password")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string CurrentPassword { get; set; }
 
+        [Display(Name ="New paswword")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "Password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        public string NewPassword { get; set; }
+       
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "Password and confirmation password do not match.")]
+        public string ConfirmNewPassword { get; set; }
     }
 }

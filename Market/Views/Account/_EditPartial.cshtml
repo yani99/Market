@@ -62,18 +62,26 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <label asp-for="@Model.Password"></label>
+                        <label asp-for="@Model.CurrentPassword"></label>
                     </div>
                     <div class="col-8">
-                        <input class="form-control" type="password" asp-for="@Model.Password" />
+                        <input class="form-control" type="password" asp-for="@Model.CurrentPassword" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <label asp-for="@Model.ConfirmPassword"></label>
+                        <label asp-for="@Model.NewPassword"></label>
                     </div>
                     <div class="col-8">
-                        <input class="form-control" type="password" asp-for="@Model.ConfirmPassword" />
+                        <input class="form-control" type="password" asp-for="@Model.NewPassword" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="@Model.ConfirmNewPassword"></label>
+                    </div>
+                    <div class="col-8">
+                        <input class="form-control" type="password" asp-for="@Model.ConfirmNewPassword" />
                     </div>
                 </div>
             </div>
@@ -86,7 +94,7 @@
 </div>
 
 
-    <script>
+<script>
         function getFormData($form) {
             var unindexed_array = $form.serializeArray();
             var indexed_array = {};
@@ -108,8 +116,11 @@
                 type: "POST",
                 data: { model: formData},
                 success: function (result) {
+                    if (result) {
+                         window.location.href = "/Account"
+                    }
                     $("#account-edit").html(result);
                 }
             })
         })
-    </script>
+</script>
