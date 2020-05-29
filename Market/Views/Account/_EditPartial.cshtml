@@ -116,9 +116,10 @@
                 type: "POST",
                 data: { model: formData},
                 success: function (result) {
-                    if (result) {
+                    if (result === true) {
                          window.location.href = "/Account"
                     }
+                    
                     $("#account-edit").html(result);
                 }
             })

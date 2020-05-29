@@ -9,7 +9,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: white;
 }
 
 .btn-primary {
@@ -21,7 +21,7 @@ a {
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
-  border-color: #1861ac;
+  border-color: white;
 }
 
 /* Sticky footer styles
@@ -66,17 +66,32 @@ body {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+ul li {
+    list-style: none;
+}
+
+ul li i, button i, a i {
+    margin-right: 10px;
+}
+
+.bg-white-wrapper{
+    background: white;
+    width: 100%;
+    height: 100vh;
+    padding-top: 20px;
 }
 
 main {
@@ -97,32 +112,19 @@ main {
 }
 
     .custom-validation-summary ul {
-        margin-left: 20px;
+        padding-left: 20px;
     }
 
-ul li {
-    list-style: none;
+/*my account css*/
+.account-sidebar {
+    width: 16%;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
 }
-
-i {
-    margin-right: 10px;  
-}
-
-.account-wrapper {
-    background: white;
-    width: 100%;
-    height: 1000px;
-    padding-top:20px;
-}
-
-.account-sidebar{
-    width:16%;
-    float:left;
-}
-
     .account-sidebar ul li a {
         display: block;
-        padding: 14px 5px 13px 12px;
+        padding: 15px 0;
         border-bottom: 1px solid #e7e7e7;  
         color: black;
         font-size: 13px;
@@ -131,14 +133,15 @@ i {
         text-transform:uppercase;
     }
 
-    .account-sidebar ul li a:hover{
-        color:orange;
-    }
+        .account-sidebar ul li a:hover {
+            color: #0366d6;
+        }
 
 .account-content {
     float: left;
-    width: 82%;
+    width: 84%;
     padding-left:10px;
+    padding-right: 10px;
 }
 
 .account-card {
@@ -161,9 +164,9 @@ i {
             color:black;
         }
 
-        .account-card .card-title a:hover{
-            color:white;
-        }
+            .account-card .card-title a:hover {
+                color: #0366d6;
+            }
 
     .account-card .card-body .row{
         padding-top:10px;
@@ -171,8 +174,6 @@ i {
 
     .account-card .card-body .balance {
         font-size: 30px;
-        color: #70d929;
+        color: darkgreen;
     }
-
-
 

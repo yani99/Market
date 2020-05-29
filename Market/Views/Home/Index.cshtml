@@ -4,41 +4,43 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-4">
-            <div class="card m-3">
-                <div class="card-header">
-                    <h4 class="card-title">@item.Title</h4>
+    <div class="bg-white-wrapper">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-4">
+                    <div class="card m-3">
+                        <div class="card-header">
+                            <h4 class="card-title">@item.Title</h4>
+                        </div>
+                        <img class="card-img-top" src="~/images/universalmarket-background.jpg" asp-append-version="true">
+                        <div class="card-body">
+                            <p class="card-text">@item.Description</p>
+                            <p class="card-text">@item.Price</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a class="btn btn-primary" href="/home/details/1">View</a>
+                            <a asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                            <a href="#" class="btn btn-primary">Delete</a>
+                        </div>
+                    </div>
                 </div>
-                <img class="card-img-top" src="~/images/universalmarket-background.jpg" asp-append-version="true">
-                <div class="card-body">
-                    <p class="card-text">@item.Description</p>
-                    <p class="card-text">@item.Price</p>
-                </div>
-                <div class="card-footer text-center">
-                    <a class="btn btn-primary" href="/home/details/1">View</a>
-                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-primary">Delete</a>
-                </div>
-            </div>
+            }
         </div>
-    }
-</div>
 
-@{
-    var prevDisabled = !Model.PreviousPage ? "diasabled" : "";
-    var nextDisabled = !Model.NextPage ? "diasabled" : "";
-}
+        @{
+            var prevDisabled = !Model.PreviousPage ? "diasabled" : "";
+            var nextDisabled = !Model.NextPage ? "diasabled" : "";
+        }
 
-<a asp-action="Index"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
-   class="btn btn-default @prevDisabled">
-    Privious
-</a>
-<a asp-action="Index"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            Privious
+        </a>
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+    </div>
