@@ -1,0 +1,51 @@
+﻿@model CreateProductViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+    <div class="bg-white-wrapper">
+        <h1>Create Product</h1>
+        <hr />
+        <div>
+            <form method="post">
+                <div asp-validation-summary="All" class="custom-validation-summary"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control "> </textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProfilePicture" class="control-label"></label>
+                    <input asp-for="ProfilePicture" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageCollection" class="control-label"></label>
+                    <input asp-for="ImageCollection" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <select class="form-control" asp-for="@Model.QualityId" asp-items="@Model.QualityList">
+                        <option>Select Quality</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to Home Page</a>
+</div>

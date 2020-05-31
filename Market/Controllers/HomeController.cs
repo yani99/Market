@@ -47,20 +47,5 @@ namespace Market.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Edit(int Id)
-        {
-            var _product = new Product
-            {
-                Id = 6,
-                Description = "Porcelanova chasha",
-                Title = "Chasha",
-                Price = 14
-            };
-            var ViewModel = _mapper.Map<EditProductViewModel>(_product);
-            return View(ViewModel);
-        }
     }
 }

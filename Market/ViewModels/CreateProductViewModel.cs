@@ -1,6 +1,4 @@
-﻿using Market.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,23 +7,21 @@ using System.Threading.Tasks;
 
 namespace Market.ViewModels
 {
-    public class EditProductViewModel
+    public class CreateProductViewModel
     {
-        public int Id { get; set; }
         public string UserId { get; set; }
         [Required]
         public decimal Price { get; set; }
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
-        [Display(Name ="Profile Picture")]
+        [Display(Name = "Profile Picture")]
         public byte[] ProfilePicture { get; set; }
         [Display(Name = "More Pictures")]
         public int? ImageCollection { get; set; }
         [Required]
         public int Quantity { get; set; }
         public int QualityId { get; set; }
-       public List<SelectListItem> QualityList { get; set; }
-
+        public List<SelectListItem> QualityList { get; set; }
     }
 }

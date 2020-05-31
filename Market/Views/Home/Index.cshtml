@@ -19,9 +19,7 @@
                             <p class="card-text">@item.Price</p>
                         </div>
                         <div class="card-footer text-center">
-                            <a class="btn btn-primary" href="/home/details/1">View</a>
-                            <a asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                            <a href="#" class="btn btn-primary">Delete</a>
+                            <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" >View</a>
                         </div>
                     </div>
                 </div>
