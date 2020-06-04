@@ -3,42 +3,40 @@
 @{
     ViewBag.Title = "User Registration";
 }
-    <body class="universal-market-backgound">
-    </body>
-    <div class="universal-market-logo"></div>
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <h4 class="text-center">Create Account</h4>
-            <form method="post">               
-                <div asp-validation-summary="All" class="custom-validation-summary"></div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-user"></i></span>
+        <div class="universal-market-logo"></div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h4 class="text-center">Create Account</h4>
+                <form method="post">
+                    <div asp-validation-summary="All" class="custom-validation-summary"></div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i></span>
+                        </div>
+                        <input class="form-control" asp-for="@Model.UserName" placeholder="Username">
                     </div>
-                    <input class="form-control" asp-for="@Model.UserName" placeholder="Username">                   
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input class="form-control" asp-for="@Model.Email" placeholder="Email address" type="email">
                     </div>
-                    <input class="form-control" asp-for="@Model.Email" placeholder="Email address" type="email">
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input class="form-control" asp-for="@Model.Password" placeholder="Create password" type="password">
                     </div>
-                    <input class="form-control" asp-for="@Model.Password" placeholder="Create password" type="password">
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input class="form-control" asp-for="@Model.ConfirmPassword" placeholder="Repeat password" type="password">
                     </div>
-                    <input class="form-control" asp-for="@Model.ConfirmPassword" placeholder="Repeat password" type="password">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
-                </div>
-                <p>Have an account? <a asp-action="Login" asp-controller="Account" style="color:black">Log In</a> </p>
-            </form>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+                    </div>
+                    <p>Have an account? <a asp-action="Login" asp-controller="Account">Log In</a> </p>
+                </form>
+            </div>
         </div>
-    </div>

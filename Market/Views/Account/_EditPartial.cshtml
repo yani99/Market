@@ -1,14 +1,14 @@
 ﻿@model EditAccountViewModel
 
 
-<div id="account-edit">
-    <h1 class="text-uppercase">Edit Account</h1>
+<div class="account-edit">
+    <h1>Edit Account</h1>
     <hr />
-    <form id="account-edit-form" method="post">
+    <form method="post">
         <div asp-validation-summary="All" class="custom-validation-summary"></div>
         <div class="card account-card">
             <div class="card-title">
-                <h2 class="text-uppercase">Your information</h2>
+                <h2>Your information</h2>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -57,7 +57,7 @@
 
         <div class="card account-card">
             <div class="card-title">
-                <h2 class="text-uppercase">Reset Password</h2>
+                <h2>Reset Password</h2>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -86,8 +86,7 @@
                 </div>
             </div>
         </div>
-        <hr />
-        <div class="form-group">
+        <div class="form-group mt-2">
             <button id="submit" type="submit" class="btn btn-primary btn-block">Submit</button>
         </div>
     </form>
@@ -106,7 +105,7 @@
             return indexed_array;
         }
 
-        $("#account-edit-form").submit(function (e) {
+        $("form").submit(function (e) {
             e.preventDefault();
             var editAccountUrl = "@Url.Action("Edit","Account")";
             var formData = getFormData($(this));

@@ -3,55 +3,56 @@
     ViewData["Title"] = "Account Home Page";
 }
 
-    <div class="bg-white-wrapper">
-        <aside class="account-sidebar">
-            <ul>
-                <li>
-                    <a id="account-sidebar-details-link" href="#"><i class="fas fa-user"></i>Account details</a>
-                </li>
-                <li>
-                    <a id="account-sidebar-edit-link" href="#"><i class="fas fa-user-cog"></i>Settings</a>
-                </li>
-                <li>
-                    <a id="my-account" href="#"><i class="fas fa-shopping-cart"></i>My Purchases</a>
-                </li>
-                <li>
-                    <a id="my-account" href="#"><i class="fas fa-heart"></i>Favorite products</a>
-                </li>
-                <li>
-                    <a id="my-account" asp-action="Index" asp-controller="Home"><i class="fas fa-home"></i>Home Page</a>
-                </li>
-            </ul>
-        </aside>
-        <section class="account-content">
-            <partial name="_DetailsPartial" model="@Model" />
-        </section>
-    </div>
+<section class="account-main-side-navigation-section">
+    <ul>
+        <li>
+            <a id="details-link" href="#"><i class="fas fa-user"></i>Account details</a>
+        </li>
+        <li>
+            <a id="edit-link" href="#"><i class="fas fa-user-cog"></i>Settings</a>
+        </li>
+        <li>
+            <a id="my-account" href="#"><i class="fas fa-shopping-cart"></i>My Purchases</a>
+        </li>
+        <li>
+            <a id="my-account" href="#"><i class="fas fa-heart"></i>Favorite products</a>
+        </li>
+        <li>
+            <a id="my-account" asp-action="Index" asp-controller="Home"><i class="fas fa-home"></i>Home Page</a>
+        </li>
+    </ul>
+</section>
+<section class="account-main-content-section">
+    <partial name="_DetailsPartial" model="@Model" />
+</section>
 
 <script>
-        var editAccountUrl = "@Url.Action("Edit","Account")";
-        var detailAccountUrl = "@Url.Action("Details","Account")";
+        var detailUrl = "@Url.Action("Details","Account")";
+        var editUrl = "@Url.Action("Edit","Account")";
+        var content = ".account-main-content-section";
 
-        $("#account-sidebar-details-link").click(function (e) {
+        $("#details-link").click(function (e) {
             e.preventDefault();
             $.ajax({
                 type: "GET",
-                url: detailAccountUrl,
+                url: detailUrl,
                 success: function (result) {
-                    $(".account-content").html(result);
+                    $(content).html(result);
                 }
             })
         })
 
-        $("#account-sidebar-edit-link").click(function (e) {
+        $("#edit-link").click(function (e) {
             e.preventDefault();
             $.ajax({
                 type: "GET",
-                url: editAccountUrl,
+                url: editUrl,
                 success: function (result) {
-                    $(".account-content").html(result);
+                    $(content).html(result);
                 }
             })
         })
 </script>
+
+
 

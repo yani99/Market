@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Market.Models
+﻿namespace Market.Models
 {
     public partial class Orders
     {

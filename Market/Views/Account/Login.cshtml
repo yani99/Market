@@ -2,44 +2,32 @@
 @{
     ViewData["Title"] = "User Login";
 }
-<body class="universal-market-backgound"></body>
-
-<div class="container backgo">
-    <div class="universal-market-logo"></div>
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <h4 class="text-center">Log In</h4>
-            <form method="post">
-                <div asp-validation-summary="All" class="custom-validation-summary"></div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-user"></i></span>
-                    </div>
-                    <input class="form-control" asp-for="@Model.UserName" placeholder="Username">
+<div class="universal-market-logo"></div>
+<div class="row justify-content-center">
+    <div class="col-6">
+        <h4 class="text-center">Log In</h4>
+        <form method="post">
+            <div asp-validation-summary="All" class="custom-validation-summary"></div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i></span>
                 </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                    </div>
-                    <input class="form-control" asp-for="@Model.Password" placeholder="Create password" type="password">
+                <input class="form-control" asp-for="@Model.UserName" placeholder="Username">
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> Log In</button>
-                </div>
-                <div class="form-group">
-                    <a class="ForgetPwd" style="color:black" asp-action="ForgotPassword" asp-controller="Account">Forget Password?</a>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="@Model.RememberMe">
-                            <input asp-for="@Model.RememberMe" />
-                            @Html.DisplayNameFor(m => m.RememberMe)
-                        </label>
-                    </div>
-                </div>
-            </form>
-        </div>
+                <input class="form-control" asp-for="@Model.Password" placeholder="Create password" type="password">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Log In</button>
+            </div>
+            <div class="checkbox">
+                <input asp-for="@Model.RememberMe" />
+                <label asp-for="@Model.RememberMe"></label>
+            </div>
+            <a asp-action="ForgotPassword" asp-controller="Account">Forget Password?</a>
+        </form>
     </div>
 </div>
-
-     

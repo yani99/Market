@@ -1,19 +1,19 @@
 ﻿@model DetailsAccountViewModel
 
 
-<div id="account-details">
-    <h1 class="text-uppercase">Account details</h1>
+<div class="account-details">
+    <h1>Account details</h1>
     <hr />
 
     <div class="card account-card">
         <div class="card-title">
             <div class="row">
                 <div class="col-9">
-                    <h2 class="text-uppercase">Your information</h2>
+                    <h2>Your information</h2>
                 </div>
 
                 <div class="col-3">
-                    <a id="account-details-edit-link" href="#"><i class="fas fa-edit"></i>Edit</a>
+                    <a id="details-edit-link" href="#"><i class="fas fa-edit"></i>Edit</a>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
         <div class="card-title">
             <div class="row">
                 <div class="col-9">
-                    <h2 class="text-uppercase">Your Balance</h2>
+                    <h2>Your Balance</h2>
                 </div>
                 <div class="col-3">
                     <a href="#"><i class="fas fa-edit"></i>Add</a>
@@ -73,16 +73,16 @@
 
 
 <script>
-        var editAccountUrl = "@Url.Action("Edit","Account")";
+        var editUrl = "@Url.Action("Edit","Account")";
 
-    $("#account-details-edit-link").click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: "GET",
-                url: editAccountUrl,
-                success: function (result) {
-                    $("#account-details").html(result);
-                }
-            })
+    $("#details-edit-link").click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: editUrl,
+            success: function (result) {
+                $(".account-details").html(result);
+            }
         })
+    })
 </script>
