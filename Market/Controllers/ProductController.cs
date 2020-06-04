@@ -101,10 +101,10 @@ namespace Market.Controllers
             if (ModelState.IsValid)
             {
                 model.UserId = _userManager.GetUserId(User);
-                 var product = _mapper.Map<Product>(model);
-                _context.Product.Update(product);
+                var product = _context.Product.FirstOrDefault(p => p.Id == model.Id);
+                 _mapper.Map(model,product);
                 await _context.SaveChangesAsync();
-                RedirectToAction("Index" , "Home" );
+               return RedirectToAction("Index" , "Home" );
                
             }
             var list = _context.Quality

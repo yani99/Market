@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Market.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -7,36 +10,14 @@ using System.Threading.Tasks;
 
 namespace Market.ViewModels
 {
-    public class PaginatedListViewModel<T> : List<T> 
+    public class PaginatedListViewModel 
     {
-        public int PageIndex { get; set; }
-        public int TotalPages { get; set; }
-        private PaginatedListViewModel(List<T> items , int pageIndex , int pageSize)
-        {
-            PageIndex = pageIndex;
-            TotalPages = (int)Math.Ceiling(items.Count / (double)pageSize);
-            this.AddRange(items);
-        }
-        public bool PreviousPage
-        {
-            get
-            {
-                return (PageIndex > 1);
-            }
-        }
+        [BindProperty(SupportsGet = true)]
+        public int CurrentPage { get; set; } = 1;
+        public int Count { get; set; } 
+        public int PageSize { get; set; } = 5;
 
-        public bool NextPage
-        {
-            get
-            {
-                return (PageIndex < TotalPages);
-            }
-        }
-        public static PaginatedListViewModel<T> CreateAsync(IEnumerable<T> source , int pageIndex , int pageSize)
-        {
-            var count =  source.Count();
-            var items =  source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-            return new PaginatedListViewModel<T>(items, pageIndex, pageSize);
-        }
+        public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
+        public List<Product> Data { get; set; }
     }
 }

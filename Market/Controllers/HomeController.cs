@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Market.ViewModels;
 using AutoMapper.Configuration.Conventions;
+using Market.Services;
 
 namespace Market.Controllers
 {
@@ -29,10 +30,13 @@ namespace Market.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int currentPage = 1)
         {
-           var product =   PaginatedListViewModel<Product>.CreateAsync(_context.Product , page , 5);
-            return View(product);
+            var model = new PaginatedListViewModel();
+            var productService = new ProductService(_context);
+            model.Data = productService.GetPaginatedResult(currentPage);
+            model.Count = productService.GetCount();
+            return View(model);
         }
 
         [HttpGet]
