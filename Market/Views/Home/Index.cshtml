@@ -4,52 +4,52 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="bg-white-wrapper">
-        <div class="row">
-            @foreach (var item in Model.Data)
-            {
-                <div class="col-4">
-                    <div class="card m-3">
-                        <div class="card-header">
-                            <h4 class="card-title">@item.Title</h4>
-                        </div>
-                        <img class="card-img-top" src="~/images/universalmarket-background.jpg" asp-append-version="true">
-                        <div class="card-body">
-                            <p class="card-text">@item.Description</p>
-                            <p class="card-text">@item.Price</p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">View</a>
+<div class="bg-white-wrapper">
+    <div class="row">
+        @foreach (var item in Model.Data)
+        {
+            <div class="col-4">
+                <div class="card m-3">
+                    <div class="card-header">
+                        <h4 class="card-title">@item.Title</h4>
+                    </div>
+                    <img class="card-img-top" src="~/images/universalmarket-background.jpg" asp-append-version="true">
+                    <div class="card-body">
+                        <p class="card-text">@item.Description</p>
+                        <div class="row">
+                            <div class=" col-2">
+                                <label asp-for="@item.Price"></label>
+                            </div>
+                            <div class="col-10">
+                                <span class="card-text">@item.Price</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="card-footer text-center">
+                        <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">View</a>
+                    </div>
                 </div>
-            }
-            @*@{
-                var prevDisabled = !Model.PreviousPage ? "diasabled" : "";
-                var nextDisabled = !Model.NextPage ? "diasabled" : "";
-            }
-
-            <a asp-action="Index"
-               asp-route-pageNumber="@(Model.PageIndex - 1)"
-               class="btn btn-default @prevDisabled">
-                Privious
-            </a>
-            <a asp-action="Index"
-               asp-route-pageNumber="@(Model.PageIndex + 1)"
-               class="btn btn-default @nextDisabled">
-                Next
-            </a>*@
-
-        <ul class="pagination">
-           
-                @for(int i=1;i<=Math.Min(Model.TotalPages,5);i++)
-                {
-                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                        <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
-                    </li>
-                }
-        </ul>
-        </div>
-        </div>
-
-       
+            </div>
+        }
+    </div>
+    <ul class="pagination pl-3">
+        @if (Model.ShowPrevious)
+        {
+            <li class="page-item">
+                <a asp-page="/pagination" asp-route-currentpage="@(Model.CurrentPage -1)" class="page-link">Previous</a>
+            </li>
+        }
+        @for (int i = 1; i <= Math.Min(Model.TotalPages, 5); i++)
+        {
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
+            </li>
+        }
+        @if (Model.ShowNext)
+        {
+            <li class="page-item">
+                <a asp-page="/pagination" asp-route-currentpage="@(Model.CurrentPage + 1)" class="page-link">Next</a>
+            </li>
+        }
+    </ul>
+</div>

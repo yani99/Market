@@ -19,5 +19,7 @@ namespace Market.ViewModels
 
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
         public List<Product> Data { get; set; }
+        public bool ShowPrevious => CurrentPage > 1;
+        public bool ShowNext => CurrentPage < TotalPages;
     }
 }

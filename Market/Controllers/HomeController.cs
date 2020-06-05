@@ -36,6 +36,7 @@ namespace Market.Controllers
             var productService = new ProductService(_context);
             model.Data = await productService.GetPaginatedResult(currentPage);
             model.Count = productService.GetCount();
+            model.CurrentPage = currentPage;
             return View(model);
         }
 

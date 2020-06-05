@@ -26,7 +26,7 @@ namespace Market.Services
             return _context.Product.Count();
         }
 
-        public  async Task<List<Product>> GetPaginatedResult(int currentPage, int pageSize = 5)
+        public  async Task<List<Product>> GetPaginatedResult(int currentPage, int pageSize = 8)
         {
             return await _context.Product
                 .Skip((currentPage - 1) * pageSize)
