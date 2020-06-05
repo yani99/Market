@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace Market.Models
+namespace Market.DAL.Models
 {
     public partial class AspNetRoles
     {

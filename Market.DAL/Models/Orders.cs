@@ -1,4 +1,4 @@
-﻿namespace Market.Models
+﻿namespace Market.DAL.Models
 {
     public partial class Orders
     {

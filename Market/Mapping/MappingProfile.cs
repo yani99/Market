@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Market.Models;
+using Market.DAL.Models;
 using Market.ViewModels;
 
 namespace Market.Mapping

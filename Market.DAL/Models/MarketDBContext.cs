@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Market.Models
+namespace Market.DAL.Models
 {
     public partial class MarketDBContext
     {
@@ -20,10 +22,12 @@ namespace Market.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<ImageCollection> ImageCollection { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Quality> Quality { get; set; }
         public virtual DbSet<Shipper> Shipper { get; set; }
+        public virtual DbSet<UserFavoriteProducts> UserFavoriteProducts { get; set; }
+        public virtual DbSet<UserOrders> UserOrders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -129,35 +133,27 @@ namespace Market.Models
                 entity.Property(e => e.UserName).HasMaxLength(256);
             });
 
-            modelBuilder.Entity<ImageCollection>(entity =>
+            modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
 
-                entity.Property(e => e.Picture1)
-                    .HasColumnName("picture1")
-                    .HasMaxLength(512);
+                entity.HasOne(d => d.Shipper)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.ShipperId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_Shipper");
 
-                entity.Property(e => e.Picture2)
-                    .HasColumnName("picture2")
-                    .HasMaxLength(512);
-
-                entity.Property(e => e.Picture3)
-                    .HasColumnName("picture3")
-                    .HasMaxLength(512);
-
-                entity.Property(e => e.Picture4)
-                    .HasColumnName("picture4")
-                    .HasMaxLength(512);
-
-                entity.Property(e => e.Picture5)
-                    .HasColumnName("picture5")
-                    .HasMaxLength(512);
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_AspNetUsers");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(1000);
@@ -173,6 +169,18 @@ namespace Market.Models
                 entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasMaxLength(450);
+
+                entity.HasOne(d => d.Quality)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.QualityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_Quality");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_AspNetUsers");
             });
 
             modelBuilder.Entity<Quality>(entity =>
@@ -197,6 +205,44 @@ namespace Market.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<UserFavoriteProducts>(entity =>
+            {
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.UserFavoriteProducts)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserFavoriteProducts_Product");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserFavoriteProducts)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserFavoriteProducts_AspNetUsers");
+            });
+
+            modelBuilder.Entity<UserOrders>(entity =>
+            {
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.UserOrders)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserOrders_Order");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserOrders)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserOrders_AspNetUsers");
             });
 
             OnModelCreatingPartial(modelBuilder);

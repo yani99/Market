@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Market.Models
+namespace Market.DAL.Models
 {
     public partial class AspNetUserLogins : IdentityUserLogin<string>
     {

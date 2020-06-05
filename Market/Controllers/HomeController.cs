@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Market.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Market.ViewModels;
-using AutoMapper.Configuration.Conventions;
 using Market.Services;
+using Market.DAL.Models;
 
 namespace Market.Controllers
 {

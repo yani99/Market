@@ -1,4 +1,5 @@
-﻿using Market.Models;
+﻿using Market.DAL.Models;
+using Market.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
