@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Market.ViewModels
 {
@@ -6,6 +7,7 @@ namespace Market.ViewModels
     {
         [Required]
         [Display(Name ="Username")]
+        [Remote(controller: "Account", action: "IsUsernameInUse")]
         public string UserName { get; set; }
 
         [Display(Name = "First name")]
@@ -18,6 +20,7 @@ namespace Market.ViewModels
 
         [Required]
         [DataType(DataType.EmailAddress)]
+        [Remote(controller: "Account", action: "IsEmailInUse")]
         public string Email { get; set; }
 
         [Display(Name ="Current password")]

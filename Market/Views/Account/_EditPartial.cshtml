@@ -4,7 +4,7 @@
 <div class="account-edit">
     <h1>Edit Account</h1>
     <hr />
-    <form method="post">
+    <form id="account-edit-form" method="post">
         <div asp-validation-summary="All" class="custom-validation-summary"></div>
         <div class="card account-card">
             <div class="card-title">
@@ -86,8 +86,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-group mt-2">
-            <button id="submit" type="submit" class="btn btn-primary btn-block">Submit</button>
+        <hr />
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </div>
     </form>
 </div>
@@ -105,21 +106,21 @@
             return indexed_array;
         }
 
-        $("form").submit(function (e) {
-            e.preventDefault();
+    $("#account-edit-form").submit(function (e) {
+        e.preventDefault();
             var editAccountUrl = "@Url.Action("Edit","Account")";
-            var formData = getFormData($(this));
+            var model = getFormData($(this));
 
             $.ajax({
                 url: editAccountUrl,
                 type: "POST",
-                data: { model: formData},
+                data: { model: model},
                 success: function (result) {
                     if (result === true) {
-                         window.location.href = "/Account"
+                        window.location.href = "/Account"
+
                     }
-                    
-                    $("#account-edit").html(result);
+                    $(".account-edit").html(result);
                 }
             })
         })
