@@ -1,19 +1,13 @@
 ﻿using Market.DAL.Models;
-using Market.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Market.Services
+namespace Market.Services.Implementation
 {
-    public interface IProductService
-    {
-        Task<List<Product>> GetPaginatedResult(int currentPage, int pageSize = 5);
-        int GetCount();
-    }
     public class ProductService : IProductService
     {
         private readonly MarketDBContext _context;
@@ -27,7 +21,7 @@ namespace Market.Services
             return _context.Product.Count();
         }
 
-        public  async Task<List<Product>> GetPaginatedResult(int currentPage, int pageSize = 8)
+        public async Task<List<Product>> GetPaginatedResult(int currentPage, int pageSize = 8)
         {
             return await _context.Product
                 .Skip((currentPage - 1) * pageSize)

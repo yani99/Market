@@ -8,6 +8,7 @@ using AutoMapper;
 using Market.ViewModels;
 using Market.Services;
 using Market.DAL.Models;
+using Market.Services.Implementation;
 
 namespace Market.Controllers
 {

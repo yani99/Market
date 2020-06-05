@@ -15,10 +15,8 @@ namespace Market.ViewModels
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
-        [Display(Name = "Profile Picture")]
+        [Display(Name = "Product Picture")]
         public byte[] ProfilePicture { get; set; }
-        [Display(Name = "More Pictures")]
-        public int? ImageCollection { get; set; }
         [Required]
         public int Quantity { get; set; }
         public int QualityId { get; set; }
