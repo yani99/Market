@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Market.ViewModels
 {
@@ -22,7 +21,7 @@ namespace Market.ViewModels
         [Display(Name = "Full name")]
         public string FullName
         {
-           get { return FirstName + LastName; }
+           get { return $"{FirstName} {LastName}"; }
         }
     }
 }

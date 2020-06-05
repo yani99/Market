@@ -1,20 +1,26 @@
-﻿using Market.Models;
+﻿using Market.DAL.Models;
+using Market.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Market.ViewComponents
 {
     public class ShoppingCartViewComponent : ViewComponent
     {
+        private readonly UserManager<AspNetUsers> _userManager;
+        private readonly IUserService _userService;
 
-        public ShoppingCartViewComponent()
+        public ShoppingCartViewComponent(UserManager<AspNetUsers> userManager, IUserService userService)
         {
+            _userManager = userManager;
+            _userService = userService;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            // TODO _context.Orders.count();
-            var ordersCount = 0;
-            return View(ordersCount);
+            return View(await _userService.GetCurrentOrdersCount(_userManager.GetUserId(User as ClaimsPrincipal)));
         }
     }
 }

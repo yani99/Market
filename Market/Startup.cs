@@ -2,6 +2,7 @@ using AutoMapper;
 using Market.DAL.Models;
 using Market.Mapping;
 using Market.Services;
+using Market.Services.Implementation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -60,6 +61,7 @@ namespace Market
             }).AddRazorRuntimeCompilation();
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IUserService, UserService>();
                    
         }
 
