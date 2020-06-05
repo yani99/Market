@@ -60,21 +60,21 @@ namespace Market.Controllers
         {
             if (ModelState.IsValid)
             {
-                var list = _context.Quality
-                           .Select(a => new SelectListItem()
-                           {
-                               Value = a.Id.ToString(),
-                               Text = a.Quality1
-                           })
-                           .ToList(); 
                 var userid = _userManager.GetUserId(User);
-                model.UserId = userid;
-                model.QualityList = list;
+                model.UserId = userid;        
                 var product = _mapper.Map<Product>(model);
                 await _context.Product.AddAsync(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
+            var list = _context.Quality
+                          .Select(a => new SelectListItem()
+                          {
+                              Value = a.Id.ToString(),
+                              Text = a.Quality1
+                          })
+                          .ToList();
+            model.QualityList = list;
             return View(model);
         }
         [HttpGet]
