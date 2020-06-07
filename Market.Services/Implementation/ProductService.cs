@@ -22,9 +22,9 @@ namespace Market.Services.Implementation
             _context.Product.Add(entity);
             _context.SaveChanges();
             return entity.Id; //check
-            
+
         }
-        
+
         public List<Product> GetAll(int id)
         {
             return _context.Product.ToList();
@@ -32,34 +32,25 @@ namespace Market.Services.Implementation
 
         public Product GetById(int id)
         {
-            return  _context.Product.Where(p => p.Id == id).FirstOrDefault();
+            return _context.Product.Where(p => p.Id == id).FirstOrDefault();
         }
 
         public Product Update(Product entity)
         {
-            var product = _context.Product.Where(p => p.Id == entity.Id).FirstOrDefault();
-            _context.Entry(product).CurrentValues.SetValues(entity);    
+            var product = _context.Product.FirstOrDefault(p => p.Id == entity.Id);
+            _context.Entry(product).CurrentValues.SetValues(entity);
             _context.SaveChanges();
             return product;
         }
         public bool Delete(int id)
         {
-            bool status;
-            try
+            var entity = GetById(id);
+            if (entity == null) 
             {
-                var prodItem = _context.Product.Where(p => p.Id == id).FirstOrDefault();
-                if (prodItem != null)
-                {
-                    _context.Product.Remove(prodItem);
-                    _context.SaveChanges();
-                }
-                status = true;
+                return false; 
             }
-            catch (Exception)
-            {
-                status = false;
-            }
-            return status;
+            _context.Product.Remove(entity);
+            return _context.SaveChanges() > 0;
 
         }
         public int GetCount()
@@ -67,7 +58,7 @@ namespace Market.Services.Implementation
             return _context.Product.Count();
         }
 
-        public List<Product> GetPaginatedResult(int currentPage, int pageSize = 8)
+        public List<Product> GetPaginatedResult(int currentPage, int pageSize = 6)
         {
             return _context.Product
                 .Skip((currentPage - 1) * pageSize)

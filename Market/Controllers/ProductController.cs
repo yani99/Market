@@ -10,37 +10,28 @@ using Microsoft.AspNetCore.Identity;
 using Market.DAL.Models;
 using Market.Services.Implementation;
 using Market.Services;
+using System.Collections.Generic;
 
 namespace Market.Controllers
 {
-    public class ProductController : Controller 
+    public class ProductController : Controller
     {
         private readonly MarketDBContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly IProductService _productService;
 
-        public ProductController(MarketDBContext context, IMapper mapper, UserManager<AspNetUsers> userManager,IProductService productService)
+        public ProductController(MarketDBContext context, IMapper mapper, UserManager<AspNetUsers> userManager, IProductService productService)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
             _productService = productService;
         }
-        
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+        public IActionResult Details(int id)
+        {
+            var product = _productService.GetById(id);
             var model = _mapper.Map<EditProductViewModel>(product);
             return View(model);
         }
@@ -48,60 +39,35 @@ namespace Market.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var list = _context.Quality
-                           .Select(a => new SelectListItem()
-                           {
-                               Value = a.Id.ToString(),
-                               Text = a.Quality1
-                           })
-                           .ToList();
-            var model = new CreateProductViewModel() { QualityList = list };
+            var model = new CreateProductViewModel() { QualityList = QualityListItem() };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductViewModel model)
+        public IActionResult Create(CreateProductViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var userid = _userManager.GetUserId(User);
                 model.UserId = userid;
                 var product = _mapper.Map<Product>(model);
-                
+                _productService.Create(product);
                 return RedirectToAction("Index", "Home");
             }
-            var list = _context.Quality
-                          .Select(a => new SelectListItem()
-                          {
-                              Value = a.Id.ToString(),
-                              Text = a.Quality1
-                          })
-                          .ToList();
-            model.QualityList = list;
+            model.QualityList = QualityListItem();
             return View(model);
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var product = _productService.GetById(id);
+            if (_userManager.GetUserId(User) == product.UserId)
             {
-                return NotFound();
+                _productService.Update(product);
             }
             var model = _mapper.Map<EditProductViewModel>(product);
-            var list = _context.Quality
-                          .Select(a => new SelectListItem()
-                          {
-                              Value = a.Id.ToString(),
-                              Text = a.Quality1
-                          })
-                          .ToList();
-            model.QualityList = list;
+            model.QualityList = QualityListItem();
             return View(model);
         }
         [HttpPost]
@@ -110,21 +76,25 @@ namespace Market.Controllers
             if (ModelState.IsValid)
             {
                 model.UserId = _userManager.GetUserId(User);
-                var product = _context.Product.FirstOrDefault(p => p.Id == model.Id);
-                 _mapper.Map(model,product);
+                var product = _productService.GetById(model.Id);
+                _mapper.Map(model, product);
                 await _context.SaveChangesAsync();
-               return RedirectToAction("Index" , "Home" );
-               
+                return RedirectToAction("Index", "Home");
             }
-            var list = _context.Quality
-                         .Select(a => new SelectListItem()
-                         {
-                             Value = a.Id.ToString(),
-                             Text = a.Quality1
-                         })
-                         .ToList();
-            model.QualityList = list;
+            model.QualityList = QualityListItem();
             return View(model);
+        }
+
+        public List<SelectListItem> QualityListItem()
+        {
+            var list = _context.Quality
+                        .Select(a => new SelectListItem()
+                        {
+                            Value = a.Id.ToString(),
+                            Text = a.Quality1
+                        })
+                        .ToList();
+            return list;
         }
     }
 }
