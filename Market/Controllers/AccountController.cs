@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Market.DAL.Models;
+using Market.Services;
 using Market.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Market.Controllers
@@ -15,16 +15,16 @@ namespace Market.Controllers
     {
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly SignInManager<AspNetUsers> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
 
         public AccountController(UserManager<AspNetUsers> userManager,
-            SignInManager<AspNetUsers> signInManager, IEmailSender emailSender,
+            SignInManager<AspNetUsers> signInManager, IEmailService emailService,
             IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+            _emailService = emailService;
             _mapper = mapper;
         }
 
@@ -95,7 +95,7 @@ namespace Market.Controllers
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token }, Request.Scheme);
-                    await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                     _emailService.SendEmailAsync(model.Email, "Confirm your account",
                     $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
                     return View("SuccessRegistration");
                 }
@@ -147,7 +147,7 @@ namespace Market.Controllers
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                     var callbackUrl = Url.Action("ResetPassword", "Account",
                         new { token = token, email = model.Email }, Request.Scheme);
-                    await _emailSender.SendEmailAsync(model.Email, "ResetPassword",
+                     _emailService.SendEmailAsync(model.Email, "ResetPassword",
                     $"To Reset your password click this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
 
                     return View("ForgotPasswordConfirmation");
@@ -268,7 +268,7 @@ namespace Market.Controllers
                         await _userManager.UpdateAsync(user);
                         var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token }, Request.Scheme);
-                        await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                         _emailService.SendEmailAsync(model.Email, "Confirm your account",
                         $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
                     }                 
                 }
