@@ -27,11 +27,11 @@ namespace Market.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index(int currentPage = 1)
+        public IActionResult Index(int currentPage = 1)
         {
             var model = new PaginatedListViewModel();
             var productService = new ProductService(_context);
-            model.Data = await productService.GetPaginatedResult(currentPage);
+            model.Data = productService.GetPaginatedResult(currentPage);
             model.Count = productService.GetCount();
             model.CurrentPage = currentPage;
             return View(model);

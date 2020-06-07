@@ -8,20 +8,24 @@ using Market.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Market.DAL.Models;
+using Market.Services.Implementation;
+using Market.Services;
 
 namespace Market.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : Controller 
     {
         private readonly MarketDBContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<AspNetUsers> _userManager;
+        private readonly IProductService _productService;
 
-        public ProductController(MarketDBContext context, IMapper mapper, UserManager<AspNetUsers> userManager)
+        public ProductController(MarketDBContext context, IMapper mapper, UserManager<AspNetUsers> userManager,IProductService productService)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _productService = productService;
         }
         
         public async Task<IActionResult> Details(int? id)
@@ -61,10 +65,9 @@ namespace Market.Controllers
             if (ModelState.IsValid)
             {
                 var userid = _userManager.GetUserId(User);
-                model.UserId = userid;        
+                model.UserId = userid;
                 var product = _mapper.Map<Product>(model);
-                await _context.Product.AddAsync(product);
-                await _context.SaveChangesAsync();
+                
                 return RedirectToAction("Index", "Home");
             }
             var list = _context.Quality

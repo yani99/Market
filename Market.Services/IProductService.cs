@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace Market.Services
 {
-    interface IProductService
+   public interface IProductService
     {
-        Task<List<Product>> GetPaginatedResult(int currentPage, int pageSize = 8);
+        public List<Product> GetAll(int id);
+        public Product GetById(int id);
+        public int Create(Product entity);
+        public Product Update(Product entity);
+        public bool Delete(int id);
+
+        List<Product> GetPaginatedResult(int currentPage, int pageSize = 8);
         int GetCount();
     }
 }
