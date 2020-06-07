@@ -95,7 +95,7 @@ namespace Market.Controllers
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token }, Request.Scheme);
-                     _emailService.SendEmailAsync(model.Email, "Confirm your account",
+                    await _emailService.SendEmailAsync(model.Email, "Confirm your account",
                     $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
                     return View("SuccessRegistration");
                 }
@@ -147,7 +147,7 @@ namespace Market.Controllers
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                     var callbackUrl = Url.Action("ResetPassword", "Account",
                         new { token = token, email = model.Email }, Request.Scheme);
-                     _emailService.SendEmailAsync(model.Email, "ResetPassword",
+                     await _emailService.SendEmailAsync(model.Email, "ResetPassword",
                     $"To Reset your password click this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
 
                     return View("ForgotPasswordConfirmation");
@@ -268,7 +268,7 @@ namespace Market.Controllers
                         await _userManager.UpdateAsync(user);
                         var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token }, Request.Scheme);
-                         _emailService.SendEmailAsync(model.Email, "Confirm your account",
+                        await _emailService.SendEmailAsync(model.Email, "Confirm your account",
                         $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>Click to confirm your universalmarket Account</a>");
                     }                 
                 }

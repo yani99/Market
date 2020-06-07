@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using MailKit;
+﻿using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;
@@ -12,7 +7,7 @@ namespace Market.Services.Implementation
 {
     public class EmailService :IEmailService
     {
-        public void SendEmailAsync(string email,string subject,string msg)
+        public async Task SendEmailAsync(string email,string subject,string msg)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("universalmarket", "universalmarket@abv.bg"));
@@ -24,11 +19,10 @@ namespace Market.Services.Implementation
 
             using(var client = new SmtpClient())
             {
-                client.Connect("smtp.abv.bg", 465, true);
+                await client.ConnectAsync("smtp.abv.bg", 465, true);
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-                client.Authenticate("universalmarket@abv.bg", "universalmarket123");
-                
-                client.Send(message);
+                await client.AuthenticateAsync("universalmarket@abv.bg", "universalmarket123");                
+                await client.SendAsync(message);
                 client.Disconnect(true);
             }       
         }
