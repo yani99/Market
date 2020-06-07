@@ -27,7 +27,7 @@ namespace Market.DAL.Models
         public virtual DbSet<Quality> Quality { get; set; }
         public virtual DbSet<Shipper> Shipper { get; set; }
         public virtual DbSet<UserFavoriteProducts> UserFavoriteProducts { get; set; }
-        public virtual DbSet<UserOrders> UserOrders { get; set; }
+        public virtual DbSet<UserPurchases> UserPurchases { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -120,6 +120,8 @@ namespace Market.DAL.Models
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
+                entity.Property(e => e.Currency).HasColumnType("decimal(18, 3)");
+
                 entity.Property(e => e.Email).HasMaxLength(256);
 
                 entity.Property(e => e.FirstName).HasMaxLength(256);
@@ -135,6 +137,8 @@ namespace Market.DAL.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasMaxLength(450);
@@ -226,23 +230,15 @@ namespace Market.DAL.Models
                     .HasConstraintName("FK_UserFavoriteProducts_AspNetUsers");
             });
 
-            modelBuilder.Entity<UserOrders>(entity =>
+            modelBuilder.Entity<UserPurchases>(entity =>
             {
-                entity.Property(e => e.UserId)
-                    .IsRequired()
-                    .HasMaxLength(450);
+                entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany(p => p.UserOrders)
+                    .WithMany(p => p.UserPurchases)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserOrders_Order");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserOrders)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserOrders_AspNetUsers");
             });
 
             OnModelCreatingPartial(modelBuilder);

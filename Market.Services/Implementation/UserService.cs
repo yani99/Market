@@ -1,5 +1,7 @@
 ﻿using Market.DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Market.Services.Implementation
@@ -13,9 +15,14 @@ namespace Market.Services.Implementation
             _context = context;
         }
 
-        public async Task<int> GetCurrentOrdersCount(string Id)
+        public Task<int> GetOrdersCountAsync(string id)
         {
-            return await _context.Order.CountAsync(p => p.UserId == Id);
+            return _context.Order.CountAsync(p => p.UserId == id);
+        }
+
+        public List<Order> GetAllOrders(string id)
+        {
+           return _context.Order.Where(ord => ord.UserId == id).ToList();
         }
     }
 }

@@ -14,11 +14,11 @@ namespace Market.DAL.Models
             Order = new HashSet<Order>();
             Product = new HashSet<Product>();
             UserFavoriteProducts = new HashSet<UserFavoriteProducts>();
-            UserOrders = new HashSet<UserOrders>();
         }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public decimal? Currency { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -27,6 +27,5 @@ namespace Market.DAL.Models
         public virtual ICollection<Order> Order { get; set; }
         public virtual ICollection<Product> Product { get; set; }
         public virtual ICollection<UserFavoriteProducts> UserFavoriteProducts { get; set; }
-        public virtual ICollection<UserOrders> UserOrders { get; set; }
     }
 }

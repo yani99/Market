@@ -20,7 +20,7 @@ namespace Market.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View(await _userService.GetCurrentOrdersCount(_userManager.GetUserId(User as ClaimsPrincipal)));
+            return View(await _userService.GetOrdersCountAsync(_userManager.GetUserId(User as ClaimsPrincipal)));
         }
     }
 }

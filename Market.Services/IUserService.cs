@@ -8,6 +8,7 @@ namespace Market.Services
 {
     public interface IUserService
     {
-        Task<int> GetCurrentOrdersCount(string Id);
+         Task<int> GetOrdersCountAsync(string Id);
+         List<Order> GetAllOrders(string Id);
     }
 }
