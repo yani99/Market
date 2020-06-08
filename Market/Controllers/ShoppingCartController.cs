@@ -16,13 +16,13 @@ namespace Market.Controllers
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly MarketDBContext _context;
+        private readonly IOrderService _orderService;
 
         public ShoppingCartController(UserManager<AspNetUsers> userManager,
-            IMapper mapper, IUserService userService, MarketDBContext context)
+            IMapper mapper, IUserService userService, IOrderService orderService)
         {
             _userManager = userManager;
-            _context = context;
+            _orderService = orderService;
             _mapper = mapper;
             _userService = userService;
         }
@@ -32,8 +32,23 @@ namespace Market.Controllers
             var userId = _userManager.GetUserId(User);
             var count = await _userService.GetOrdersCountAsync(userId);
             if (count == 0) { return View("Empty"); }
+            var list = _mapper.Map<List<OrderViewModel>>(_userService.GetAllOrders(userId));
+            foreach (var item in list)
+            {
+                item.ShipperList = ShipperSelectList();
+            };
+            return View(list);
+        }
 
-            return View();
+        private List<SelectListItem> ShipperSelectList()
+        {
+            return _orderService.GetAllShippers()
+                       .Select(a => new SelectListItem()
+                       {
+                           Value = a.Id.ToString(),
+                           Text = a.CompanyName
+                       })
+                       .ToList();
         }
     }
 }

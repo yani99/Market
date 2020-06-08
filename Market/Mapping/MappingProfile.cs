@@ -8,20 +8,31 @@ namespace Market.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<RegisterViewModel, AspNetUsers>();
-            CreateMap<EditProductViewModel,Product>();
+            CreateMap<RegisterViewModel, AspNetUsers>()
+            .ReverseMap();
 
-            CreateMap<DetailsAccountViewModel, AspNetUsers>();
-            CreateMap<AspNetUsers, DetailsAccountViewModel>();
+            CreateMap<Product, EditProductViewModel>()
+                .ReverseMap();
 
-            CreateMap<EditAccountViewModel, AspNetUsers>();
-            CreateMap<AspNetUsers, EditAccountViewModel>();
+            CreateMap<AspNetUsers, DetailsAccountViewModel>()
+                .ReverseMap();
 
-            CreateMap<EditProductViewModel, Product>();
-            CreateMap<Product, EditProductViewModel>();
+            CreateMap<AspNetUsers, EditAccountViewModel>()
+                .ReverseMap();
 
-            CreateMap<CreateProductViewModel, Product>();
-            CreateMap<Product, CreateProductViewModel>();
+            CreateMap<Product, EditProductViewModel>()
+                .ReverseMap();
+
+            CreateMap<CreateProductViewModel, Product>()
+                .ReverseMap();
+
+            CreateMap<Product, Order>()
+              .ForMember(dest => dest.Id, opt => opt.Ignore())
+              .ForMember(dest => dest.UserId, opt => opt.Ignore())
+              .AfterMap((dest, src) => src.Quantity = 1)
+              .AfterMap((dest, src) => src.ShipperId = 1);
+
+            CreateMap<Order, OrderViewModel>();
         }
     }
 }

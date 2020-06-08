@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Market.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Market.ViewModels;

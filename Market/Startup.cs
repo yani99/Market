@@ -62,7 +62,7 @@ namespace Market
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProductService, ProductService>();
-                   
+            services.AddTransient<IOrderService, OrderService>();
         }
 
 

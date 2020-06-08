@@ -1,6 +1,6 @@
 using System;
 
-namespace Market.Models
+namespace Market.ViewModels
 {
     public class ErrorViewModel
     {

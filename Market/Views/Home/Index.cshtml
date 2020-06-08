@@ -1,4 +1,4 @@
-﻿
+﻿@inject UserManager<AspNetUsers> userManager
 @model PaginatedListViewModel
 @{
     ViewData["Title"] = "Home Page";
@@ -30,6 +30,12 @@
                     </div>
                     <div class="card-footer text-center">
                         <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">View</a>
+                        @if (userManager.GetUserId(User) != item.UserId)
+                        {
+                    <form method="post">
+                        <button class="btn btn-primary" type="submit" asp-action="Order" asp-controller="Order" asp-route-id="@item.Id">Order</button>
+                    </form>
+                        }
                     </div>
                 </div>
             </div>
