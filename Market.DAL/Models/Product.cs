@@ -7,6 +7,7 @@ namespace Market.DAL.Models
     {
         public Product()
         {
+            Order = new HashSet<Order>();
             UserFavoriteProducts = new HashSet<UserFavoriteProducts>();
         }
 
@@ -21,6 +22,7 @@ namespace Market.DAL.Models
 
         public virtual Quality Quality { get; set; }
         public virtual AspNetUsers User { get; set; }
+        public virtual ICollection<Order> Order { get; set; }
         public virtual ICollection<UserFavoriteProducts> UserFavoriteProducts { get; set; }
     }
 }

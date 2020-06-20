@@ -29,10 +29,12 @@ namespace Market.Mapping
             CreateMap<Product, Order>()
               .ForMember(dest => dest.Id, opt => opt.Ignore())
               .ForMember(dest => dest.UserId, opt => opt.Ignore())
+              .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.Id))
               .AfterMap((dest, src) => src.Quantity = 1)
               .AfterMap((dest, src) => src.ShipperId = 1);
 
-            CreateMap<Order, OrderViewModel>();
+            CreateMap<Order, OrderViewModel>()
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Product.Title));
         }
     }
 }

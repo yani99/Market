@@ -35,7 +35,7 @@
                             @if (userManager.GetUserId(User) != item.UserId)
                             {
                                 <form method="post">
-                                    <a class="btn btn-primary" type="submit" asp-action="Order" asp-controller="Order" asp-route-id="@item.Id">Order</a>
+                                    <button class="btn btn-primary" type="submit" asp-action="Order" asp-controller="Order" asp-route-id="@item.Id">Order</button>
                                 </form>
                             }
                         </div>

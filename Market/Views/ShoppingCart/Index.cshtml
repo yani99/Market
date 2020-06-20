@@ -3,39 +3,39 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="shopping-cart-wrapper">
-    <h1>Your shopping card</h1>
+<div class="shopping-cart">
+    <h1>Your shopping cart</h1>
     <hr />
-    <table class="table shopping-cart-table">
-        <thead>
-            <tr>
-                <th class="cell-1">Product</th>
-                <th class="cell-2">Price</th>
-                <th class="cell-3"> quantity</th>
-                <th class="cell-4"> Amount </th>
-                <th class="cell-5">Shipper</th>
-                <th class="cell-6"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="cell-1">@item.Title</td>
-                    <td class="cell-2"> @item.Price</td>
-                    <td class="cell-3"> @item.Quantity</td>
-                    <td class="cell-4"> @item.Amount </td>
-                    <td class="cell-5"><select asp-for="@item.ShipperId" asp-items="@item.ShipperList"></select></td>
-                    <td class="cell-6">
-                        <form method="post">
-                            <button class="far fa-trash-alt" type="submit" asp-action="Remove" asp-controller="Order" asp-route-id="@item.Id">
-                            </button>
-                        </form>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <ul class="order-table">
+        <li class="table-header">
+            <div class="col col-1">Product</div>
+            <div class="col col-2">Price</div>
+            <div class="col col-3">Quantity</div>
+            <div class="col col-4">Amount</div>
+            <div class="col col-5">Shipper</div>
+            <div class="col col-6"></div>
+
+        </li>
+
+        @foreach (var item in Model)
+        {
+            <li class="table-row">
+                <div class="col col-1">@item.Title</div>
+                <div class="col col-2">@item.Price</div>
+                <div class="col col-3">@item.Quantity</div>
+                <div class="col col-4">@item.Amount</div>
+                <div class="col col-5"><select asp-for="@item.ShipperId" asp-items="@item.ShipperList"></select></div>
+                <div class="col col-6">
+                    <form method="post">
+                        <button class="far fa-trash-alt" type="submit" asp-action="Remove" asp-controller="Order" asp-route-id="@item.Id"></button>
+                    </form>
+                </div>
+            </li>
+        }
+    </ul>
+
     <aside class="sidebar-shopping-card">
     </aside>
 </div>
+
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Market.DAL.Models
 {
-    public partial class MarketDBContext
+    public partial class MarketDBContext 
     {
         public MarketDBContext()
         {
@@ -142,6 +142,12 @@ namespace Market.DAL.Models
                 entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasMaxLength(450);
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_Product");
 
                 entity.HasOne(d => d.Shipper)
                     .WithMany(p => p.Order)
