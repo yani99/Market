@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="bg-white-wrapper">
+<div class="bg-white-wrapper home-page">
     <div class="row">
         @foreach (var item in Model.Data)
         {
@@ -18,7 +18,7 @@
                         <p class="card-text">@item.Description</p>
                         <div class="row">
                             <div class=" col-3">
-                                <label asp-for="@item.Price"></label>                              
+                                <label asp-for="@item.Price"></label>
                                 <span>:</span>
                             </div>
                             <div class="col-9">
@@ -28,14 +28,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer text-center">
-                        <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">View</a>
-                        @if (userManager.GetUserId(User) != item.UserId)
-                        {
-                    <form method="post">
-                        <button class="btn btn-primary" type="submit" asp-action="Order" asp-controller="Order" asp-route-id="@item.Id">Order</button>
-                    </form>
-                        }
+                    <div class="card-footer">
+                        <div class="row">
+                            <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">View</a>
+
+                            @if (userManager.GetUserId(User) != item.UserId)
+                            {
+                                <form method="post">
+                                    <a class="btn btn-primary" type="submit" asp-action="Order" asp-controller="Order" asp-route-id="@item.Id">Order</a>
+                                </form>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

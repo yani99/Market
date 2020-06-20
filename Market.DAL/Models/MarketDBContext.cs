@@ -120,7 +120,7 @@ namespace Market.DAL.Models
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
-                entity.Property(e => e.Currency).HasColumnType("decimal(18, 3)");
+                entity.Property(e => e.Currency).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
@@ -158,9 +158,7 @@ namespace Market.DAL.Models
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasMaxLength(1000);
+                entity.Property(e => e.Description).HasMaxLength(1000);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 

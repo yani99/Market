@@ -18,7 +18,7 @@ namespace Market.DAL.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public decimal? Currency { get; set; }
+        public decimal Currency { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }

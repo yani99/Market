@@ -127,26 +127,26 @@ ul li i, button i, a i {
     background: rgba(9,85,135,.2);
 }
 
-.account-card .card-title {
+.account-card .card-header {
     background-color: rgba(9,85,135,.5);
     padding: 20px 10px;
 }
 
-        .account-card .card-title h2 {
-            font-size: 25px;
-            color:black;
-            text-transform:uppercase;
-        }
+    .account-card .card-header h2 {
+        font-size: 25px;
+        color: black;
+        text-transform: uppercase;
+    }
 
-        .account-card .card-title a {
-            float: right;
-            font-size: 22px;
-            color:black;
-        }
+    .account-card .card-header a {
+        float: right;
+        font-size: 22px;
+        color: black;
+    }
 
-            .account-card .card-title a:hover {
-                color: #0366d6;
-            }
+        .account-card .card-header a:hover {
+            color: #0366d6;
+        }
 
 
     .account-card .card-body .row {
@@ -160,4 +160,10 @@ ul li i, button i, a i {
 
     .account-card .card-body label{
         color:rgba(0,0,0,0.5);
+    }
+.home-page .card{
+
+}
+    .home-page .card .card-footer a {
+        margin-left: 10px;
     }

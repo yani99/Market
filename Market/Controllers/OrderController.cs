@@ -35,7 +35,6 @@ namespace Market.Controllers
             var order = _mapper.Map<Order>(product);
             order.UserId = _userManager.GetUserId(User);         
             var entity =  _orderService.Add(order);
-            product.OrderId = entity.Entity.Id;
             _productService.Update(product);
             return RedirectToAction("Index", "ShoppingCart");
         }
