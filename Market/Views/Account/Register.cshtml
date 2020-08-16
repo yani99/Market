@@ -3,40 +3,30 @@
 @{
     ViewBag.Title = "User Registration";
 }
-        <div class="universal-market-logo"></div>
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <h4 class="text-center">Create Account</h4>
+    <link rel="stylesheet" href="~/css/Login.css">
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <!-- Logo -->
+                <div class="logo"></div>
+
+                <!-- Tabs Titles -->
+                <a class="tab inactive underlineHover" asp-action="Login" asp-controller="Account"> Sign In </a>
+                <a class="tab active" >Sign Up</a>
+
+                <!-- Login Form -->
                 <form method="post">
                     <div asp-validation-summary="All" class="custom-validation-summary"></div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-user"></i></span>
-                        </div>
-                        <input class="form-control" asp-for="@Model.UserName" placeholder="Username">
-                    </div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                        </div>
-                        <input class="form-control" asp-for="@Model.Email" placeholder="Email address" type="email">
-                    </div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                        </div>
-                        <input class="form-control" asp-for="@Model.Password" placeholder="Create password" type="password">
-                    </div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                        </div>
-                        <input class="form-control" asp-for="@Model.ConfirmPassword" placeholder="Repeat password" type="password">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
-                    </div>
-                    <p>Have an account? <a asp-action="Login" asp-controller="Account">Log In</a> </p>
+                    <input type="text" asp-for="@Model.UserName" class="fadeIn first"  placeholder="Login">
+                    <input type="text" asp-for="@Model.Email" class="fadeIn second" placeholder="Email">
+                    <input type="password"  asp-for="@Model.Password" class="fadeIn third" placeholder="Password">
+                    <input type="password"  asp-for="@Model.ConfirmPassword" class="fadeIn fourth"  placeholder="Confirm password">
+                    <input type="submit" class="fadeIn fifth" value="sign In">
                 </form>
+
+                <!-- Footer -->
+                <div id="formFooter">
+                    <p>Have an account?  <a class="underlineHover" asp-action="Login" asp-controller="Account">Log In</a> </p>
+                </div>
+
             </div>
         </div>

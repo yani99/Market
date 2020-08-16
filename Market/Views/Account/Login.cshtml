@@ -2,32 +2,30 @@
 @{
     ViewData["Title"] = "User Login";
 }
-<div class="universal-market-logo"></div>
-<div class="row justify-content-center">
-    <div class="col-6">
-        <h4 class="text-center">Log In</h4>
+<link rel="stylesheet" href="~/css/Login.css">
+<link rel="stylesheet" href="~/css/FadeInAnimation.css" />
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Logo -->
+        <div class="logo"></div>
+
+        <!-- Tabs Titles -->
+        <a class="tab active "> Sign In </a>
+        <a class="tab inactive underlineHover " asp-action="Register" asp-controller="Account">Sign Up</a>
+
+        <!-- Login Form -->
         <form method="post">
             <div asp-validation-summary="All" class="custom-validation-summary"></div>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i></span>
-                </div>
-                <input class="form-control" asp-for="@Model.UserName" placeholder="Username" />
-            </div>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input class="form-control" asp-for="@Model.Password" placeholder="Create password" type="password" />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Log In</button>
-            </div>
-            <div class="checkbox">
-                <input asp-for="@Model.RememberMe" />
-                <label asp-for="@Model.RememberMe"></label>
-            </div>
-            <a asp-action="ForgotPassword" asp-controller="Account">Forget Password?</a>
+            <input type="text"  class="fadeIn second" asp-for="@Model.UserName" placeholder="Login">
+            <input type="password" asp-for="@Model.Password" class="fadeIn third" placeholder="Password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
         </form>
+
+        <!-- Footer -->
+        <div id="formFooter">
+            <a class="underlineHover" asp-action="ForgotPassword" asp-controller="Account">Forgot Password?</a>
+        </div>
+
     </div>
 </div>
