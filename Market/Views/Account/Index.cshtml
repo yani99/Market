@@ -2,34 +2,42 @@
 @{
     ViewData["Title"] = "Account Home Page";
 }
+<link rel="stylesheet" href="~/css/sidebar.css"/>
 
-<section class="account-main-side-navigation-section">
-    <ul>
-        <li>
-            <a id="details-link" href="#"><i class="fas fa-user"></i>Account details</a>
-        </li>
-        <li>
-            <a id="edit-link" href="#"><i class="fas fa-user-cog"></i>Settings</a>
-        </li>
-        <li>
-            <a id="my-account" href="#"><i class="fas fa-shopping-cart"></i>My Purchases</a>
-        </li>
-        <li>
-            <a id="my-account" href="#"><i class="fas fa-heart"></i>Favorite products</a>
-        </li>
-        <li>
-            <a id="my-account" asp-action="Index" asp-controller="Home"><i class="fas fa-home"></i>Home Page</a>
-        </li>
-    </ul>
-</section>
-<section class="account-main-content-section">
-    <partial name="_DetailsPartial" model="@Model" />
-</section>
+<div class="wrapper">
+
+    <!--sidebar -->
+    <div class="sidebar">
+
+        <!-- links -->
+        <a id="details-link" href="#">
+            <i class="fas fa-user"></i>Account details
+        </a>
+        <a id="edit-link" href="#">
+            <i class="fas fa-user-cog"></i>Settings
+        </a>
+        <a id="my-account" href="#">
+            <i class="fas fa-shopping-cart"></i>My Purchases
+        </a>
+        <a id="my-account" href="#">
+            <i class="fas fa-heart"></i>Favorite products
+        </a>
+        <a id="my-account" asp-action="Index" asp-controller="Home">
+            <i class="fas fa-home"></i>Home Page
+        </a>
+    </div>
+
+    <!--sidebar-content -->
+    <div class="sidebar-content">
+        <partial name="_DetailsPartial" model="@Model" />
+    </div>
+</div>
+
 
 <script>
         var detailUrl = "@Url.Action("Details","Account")";
         var editUrl = "@Url.Action("Edit","Account")";
-        var content = ".account-main-content-section";
+        var content = ".sidebar-content";
 
         $("#details-link").click(function (e) {
             e.preventDefault();

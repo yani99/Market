@@ -1,0 +1,29 @@
+﻿.wrapper {
+    display: table;
+    width:100%;
+
+}
+
+.sidebar {
+    display: table-cell;
+    width: 200px;
+    background-color:gray;
+}
+
+.sidebar-content {
+    display: table-cell;
+    padding-left:10px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px 0;
+    border-bottom: 1px solid #e7e7e7;
+    font-size: 13px;
+    line-height: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-left: 10px;
+}
+
+

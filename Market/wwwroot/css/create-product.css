@@ -1,0 +1,30 @@
+﻿body {
+    background: #f2f4f5;
+}
+
+.fieldset {
+    background-color: white;
+    padding: 20px 32px;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+.fieldset-title {
+    font-size: 30px;
+    line-height: 1.1;
+    margin-top: 12px;
+    margin-bottom: 10px;
+
+
+    font-weight: 300;
+}
+
+.label{
+    font-size:18px;
+    display:block;
+}
+
+.imortant{
+    color:red;
+    font-size:25px;
+}

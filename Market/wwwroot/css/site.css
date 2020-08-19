@@ -7,7 +7,7 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .main-navbar, .main-footer {
-    background-color: rgb(45,45,45) /*light black*/;
+    background-color: rgb(35,35,35) /*light black*/;
 }
 
     .main-navbar .dropdown .btn {
@@ -98,27 +98,6 @@ ul li i, button i, a i {
         padding-left: 20px;
     }
 
-.account-main-side-navigation-section {
-    width: 16%;
-    float: left;
-}
-    .account-main-side-navigation-section ul li a {
-       
-        display: block;
-        padding: 15px 0;
-        border-bottom: 1px solid #e7e7e7;
-        font-size: 13px;
-        line-height: 14px;
-        font-weight: 700;
-        text-transform: uppercase;
-        padding-left:10px;
-    }
-
-.account-main-content-section {
-    float: left;
-    width: 84%;
-    padding-left: 50px;
-}
 
 .account-card.card {
     margin-top: 10px;

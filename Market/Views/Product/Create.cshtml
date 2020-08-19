@@ -3,44 +3,56 @@
 @{
     ViewData["Title"] = "Create";
 }
+    <link rel="stylesheet" href="~/css/create-product.css">
 
-    <div class="bg-white-wrapper">
-        <h1>Create Product</h1>
-        <hr />
-        <div>
+        <h1>Add Product</h1>
+ 
             <form method="post">
                 <div asp-validation-summary="All" class="custom-validation-summary"></div>
-                <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <textarea asp-for="Description" class="form-control"  > </textarea>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ProfilePicture" class="control-label"></label>
-                    <input asp-for="ProfilePicture" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Quantity" class="control-label"></label>
-                    <input asp-for="Quantity" class="form-control" min="1" value="1"/>
-                </div>
-                <div class="form-group">
-                    <select class="form-control" asp-for="@Model.QualityId" asp-items="@Model.QualityList">
-                        <option>Select Quality</option>
-                    </select>
-                </div>
-                <div class="form-group">
+
+                <fieldset class="fieldset">
+
+                    <div class="fieldset-title">Title</div>
+
+                    <div class="fieldset-cell">
+                        <div class="label">
+                            <label asp-for="Title"></label>
+                            <span class="imortant">*</span>
+                        </div>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+
+                    <div class="fieldset-cell">
+                        <label asp-for="Price" class="label"></label>
+                        <input asp-for="Price" class="form-control" value="1" />
+                    </div>
+
+                    <div class="fieldset-cell">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"> </textarea>
+                    </div>
+
+                    <div class="fieldset-cell">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" class="form-control" min="1" value="1" />
+                    </div>
+                    <div class="fieldset-cell">
+                        <select class="form-control" asp-for="@Model.QualityId" asp-items="@Model.QualityList">
+                            <option>Select Quality</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group">
+                        <label asp-for="ProfilePicture" class="control-label"></label>
+                        <input asp-for="ProfilePicture" class="form-control" />
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <a asp-action="Index" asp-controller="Home">Back to Home Page</a>
                     <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
+                </fieldset>
             </form>
-        </div>
-    </div>
-<div>
-    <a asp-action="Index" asp-controller="Home">Back to Home Page</a>
-</div>
+      

@@ -39,7 +39,7 @@ namespace Market.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var model = new CreateProductViewModel() { QualityList = QualityListItem() };
+            var model = new CreateProductViewModel() { QualityList = _productService.QualitySelectList()};
             return View(model);
         }
 
@@ -54,7 +54,7 @@ namespace Market.Controllers
                 _productService.Create(product);
                 return RedirectToAction("Index", "Home");
             }
-            model.QualityList = QualityListItem();
+            model.QualityList = _productService.QualitySelectList();
             return View(model);
         }
         [HttpGet]
@@ -67,7 +67,7 @@ namespace Market.Controllers
                 _productService.Update(product);
             }
             var model = _mapper.Map<EditProductViewModel>(product);
-            model.QualityList = QualityListItem();
+            model.QualityList = _productService.QualitySelectList();
             return View(model);
         }
         [HttpPost]
@@ -81,20 +81,8 @@ namespace Market.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
-            model.QualityList = QualityListItem();
+            model.QualityList = _productService.QualitySelectList();
             return View(model);
-        }
-
-        public List<SelectListItem> QualityListItem()
-        {
-            var list = _context.Quality
-                        .Select(a => new SelectListItem()
-                        {
-                            Value = a.Id.ToString(),
-                            Text = a.Quality1
-                        })
-                        .ToList();
-            return list;
         }
     }
 }

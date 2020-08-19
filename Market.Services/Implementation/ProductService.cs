@@ -1,4 +1,5 @@
 ﻿using Market.DAL.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Market.Services.Implementation
         {
             _context.Product.Add(entity);
             _context.SaveChanges();
-            return entity.Id; //check
+            return entity.Id;
 
         }
 
@@ -63,6 +64,17 @@ namespace Market.Services.Implementation
             return _context.Product
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
+                .ToList();
+        }
+
+        public List<SelectListItem> QualitySelectList()
+        {
+            return _context.Quality
+                .Select(q => new SelectListItem()
+                {
+                    Value = q.Id.ToString(),
+                    Text = q.Quality1
+                })
                 .ToList();
         }
     }

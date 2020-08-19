@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "User Login";
 }
-<link rel="stylesheet" href="~/css/Login.css">
-<link rel="stylesheet" href="~/css/FadeInAnimation.css" />
+<link rel="stylesheet" href="~/css/login.css">
+<link rel="stylesheet" href="~/css/fade-in-animation.css" />
 
 <div class="wrapper fadeInDown">
     <div id="formContent">
@@ -17,13 +17,17 @@
         <!-- Login Form -->
         <form method="post">
             <div asp-validation-summary="All" class="custom-validation-summary"></div>
-            <input type="text"  class="fadeIn second" asp-for="@Model.UserName" placeholder="Login">
+            <input type="text" class="fadeIn second" asp-for="@Model.UserName" placeholder="Login">
             <input type="password" asp-for="@Model.Password" class="fadeIn third" placeholder="Password">
             <input type="submit" class="fadeIn fourth" value="Log In">
+            <div>
+                <input asp-for="@Model.RememberMe" /> 
+                @Html.DisplayNameFor(m => m.RememberMe)
+            </div>
         </form>
 
         <!-- Footer -->
-        <div id="formFooter">
+        <div id="formFooter"> 
             <a class="underlineHover" asp-action="ForgotPassword" asp-controller="Account">Forgot Password?</a>
         </div>
 

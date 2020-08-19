@@ -3,30 +3,32 @@
 @{
     ViewBag.Title = "User Registration";
 }
-    <link rel="stylesheet" href="~/css/Login.css">
-        <div class="wrapper fadeInDown">
-            <div id="formContent">
-                <!-- Logo -->
-                <div class="logo"></div>
+<link rel="stylesheet" href="~/css/login.css">
+<link rel="stylesheet" href="~/css/fade-in-animation.css" />
 
-                <!-- Tabs Titles -->
-                <a class="tab inactive underlineHover" asp-action="Login" asp-controller="Account"> Sign In </a>
-                <a class="tab active" >Sign Up</a>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Logo -->
+        <div class="logo"></div>
 
-                <!-- Login Form -->
-                <form method="post">
-                    <div asp-validation-summary="All" class="custom-validation-summary"></div>
-                    <input type="text" asp-for="@Model.UserName" class="fadeIn first"  placeholder="Login">
-                    <input type="text" asp-for="@Model.Email" class="fadeIn second" placeholder="Email">
-                    <input type="password"  asp-for="@Model.Password" class="fadeIn third" placeholder="Password">
-                    <input type="password"  asp-for="@Model.ConfirmPassword" class="fadeIn fourth"  placeholder="Confirm password">
-                    <input type="submit" class="fadeIn fifth" value="sign In">
-                </form>
+        <!-- Tabs Titles -->
+        <a class="tab inactive underlineHover" asp-action="Login" asp-controller="Account"> Sign In </a>
+        <a class="tab active">Sign Up</a>
 
-                <!-- Footer -->
-                <div id="formFooter">
-                    <p>Have an account?  <a class="underlineHover" asp-action="Login" asp-controller="Account">Log In</a> </p>
-                </div>
+        <!-- Login Form -->
+        <form method="post">
+            <div asp-validation-summary="All" class="custom-validation-summary"></div>
+            <input type="text" asp-for="@Model.UserName" class="fadeIn first" placeholder="Login">
+            <input type="text" asp-for="@Model.Email" class="fadeIn second" placeholder="Email">
+            <input type="password" asp-for="@Model.Password" class="fadeIn third" placeholder="Password">
+            <input type="password" asp-for="@Model.ConfirmPassword" class="fadeIn fourth" placeholder="Confirm password">
+            <input type="submit" class="fadeIn fifth" value="sign In">
+        </form>
 
-            </div>
+        <!-- Footer -->
+        <div id="formFooter">
+            <p>Have an account?  <a class="underlineHover" asp-action="Login" asp-controller="Account">Log In</a> </p>
         </div>
+
+    </div>
+</div>

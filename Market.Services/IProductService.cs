@@ -1,4 +1,5 @@
 ﻿using Market.DAL.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +17,6 @@ namespace Market.Services
 
         List<Product> GetPaginatedResult(int currentPage, int pageSize = 8);
         int GetCount();
+        List<SelectListItem> QualitySelectList();
     }
 }

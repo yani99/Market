@@ -4,64 +4,116 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="bg-white-wrapper home-page">
-    <div class="row">
-        @foreach (var item in Model.Data)
-        {
-            <div class="col-4">
-                <div class="card m-3">
-                    <div class="card-header">
-                        <h4 class="card-title">@item.Title</h4>
-                    </div>
-                    <img class="card-img-top" src="~/images/universalmarket-background.jpg" asp-append-version="true">
-                    <div class="card-body">
-                        <p class="card-text">@item.Description</p>
-                        <div class="row">
-                            <div class=" col-3">
-                                <label asp-for="@item.Price"></label>
-                                <span>:</span>
-                            </div>
-                            <div class="col-9">
-                                <span class="card-text">
-                                    @item.Price <i class="fas fa-dollar-sign"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="row">
-                            <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">View</a>
 
-                            @if (userManager.GetUserId(User) != item.UserId)
-                            {
-                                <form method="post">
-                                    <button class="btn btn-primary" type="submit" asp-action="Order" asp-controller="Order" asp-route-id="@item.Id">Order</button>
-                                </form>
-                            }
-                        </div>
+
+<link rel="stylesheet" href="~/css/product-card.css">
+
+<div class="wrapper">
+    @foreach (var item in Model.Data)
+    {
+        <div class="container">
+            <div class="top">
+                <img src="~/images/universalmarket-background.jpg" />
+            </div>
+
+            <div class="bottom">
+                <div class="left">
+                    <div class="details">
+                        <h1> @item.Title</h1>
+                        <p> £@item.Price</p>
                     </div>
+                    <div class="buy"> <i class="fas fa-shopping-cart"> </i> </div>
+                </div>
+
+                <div class="right">
+                    <div class="done">
+                        <i class="fas fa-check"> </i>
+                    </div>
+                    <div class="details">
+                        <h1> @item.Title</h1>
+                        <p> Added to your cart</p>
+                    </div>
+                    <div class="remove"> <i class="material-icons"> clear</i> </div>
                 </div>
             </div>
-        }
-    </div>
-    <ul class="pagination pl-3">
-        @if (Model.ShowPrevious)
-        {
-            <li class="page-item">
-                <a asp-page="/pagination" asp-route-currentpage="@(Model.CurrentPage -1)" class="page-link">Previous</a>
-            </li>
-        }
-        @for (int i = 1; i <= Math.Min(Model.TotalPages, 5); i++)
-        {
-            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
-            </li>
-        }
-        @if (Model.ShowNext)
-        {
-            <li class="page-item">
-                <a asp-page="/pagination" asp-route-currentpage="@(Model.CurrentPage + 1)" class="page-link">Next</a>
-            </li>
-        }
-    </ul>
+        </div>
+
+        <div class="inside">
+            <div class="icon"> <i class="fas fa-info"></i></div>
+
+            <div class="contents">
+                <table>
+                    <tr>
+                        <th> Width</th>
+                        <th> Height</th>
+                    </tr>
+                    <tr>
+                        <td> @item.User.Id</td>
+                        <td> 4000mm</td>
+                    </tr>
+                    <tr>
+                        <th> Something</th>
+                        <th> Something</th>
+                    </tr>
+                    <tr>
+                        <td> 200mm</td>
+                        <td> 200mm</td>
+                    </tr>
+                    <tr>
+                        <th> Something</th>
+                        <th> Something</th>
+                    </tr>
+                    <tr>
+                        <td> 200mm</td>
+                        <td> 200mm</td>
+                    </tr>
+                    <tr>
+                        <th> Something</th>
+                        <th> Something</th>
+                    </tr>
+                    <tr>
+                        <td> 200mm</td>
+                        <td> 200mm</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
 </div>
+
+<ul class="pagination pl-3">
+    @if (Model.ShowPrevious)
+    {
+        <li class="page-item">
+            <a asp-page="/pagination" asp-route-currentpage="@(Model.CurrentPage -1)" class="page-link">Previous</a>
+        </li>
+    }
+    @for (int i = 1; i <= Math.Min(Model.TotalPages, 5); i++)
+    {
+        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+            <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
+        </li>
+    }
+    @if (Model.ShowNext)
+    {
+        <li class="page-item">
+            <a asp-page="/pagination" asp-route-currentpage="@(Model.CurrentPage + 1)" class="page-link">Next</a>
+        </li>
+    }
+</ul>
+
+
+<script>
+    $('.buy').click(function () {
+        $('.bottom').addClass("clicked");
+    });
+
+    $('.remove').click(function () {
+        $('.bottom').removeClass("clicked");
+    });
+</script>
+
+
+
+
+

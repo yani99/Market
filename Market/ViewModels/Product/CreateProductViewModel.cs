@@ -11,6 +11,7 @@ namespace Market.ViewModels
     {
         public string UserId { get; set; }
         [Required]
+        [Range(1,9999999.99,ErrorMessage ="The {0} must be between {1} and {2}")]
         public decimal Price { get; set; }
         [Required]
         public string Title { get; set; }
@@ -18,6 +19,7 @@ namespace Market.ViewModels
         [Display(Name = "Product Picture")]
         public byte[] ProfilePicture { get; set; }
         [Required]
+        [Range(1,100,ErrorMessage ="The {0} must be between {1} and {2}")]
         public int Quantity { get; set; }
         public int QualityId { get; set; }
         public List<SelectListItem> QualityList { get; set; }

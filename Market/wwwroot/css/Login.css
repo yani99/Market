@@ -135,9 +135,6 @@ input[type=text], input[type=password] {
         border-bottom: 2px solid #5fbae9;
     }
 
-
-
-
 /* OTHERS */
 
 *:focus {
@@ -150,8 +147,4 @@ input[type=text], input[type=password] {
 
 * {
     box-sizing: border-box;
-}
-
-form input:focus{
-   
 }
